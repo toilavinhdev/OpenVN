@@ -1,0 +1,240 @@
+::ng-deep .feedback-page {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  .feedback-header {
+    height: 60px;
+  }
+
+  .feedback-box {
+    position: relative;
+    height: calc(100% - 156px);
+    padding: 16px 16px 4px 16px;
+    // overflow: auto;
+
+    .virtual-scroll {
+      height: calc(100% - 20px);
+      scroll-behavior: smooth;
+    }
+
+    .typing-effect {
+      display: flex;
+      align-items: center;
+      height: 20px;
+
+      .text {
+        margin-left: 2px;
+        margin-right: 4px;
+        font-size: 11px;
+        font-style: italic;
+        letter-spacing: 1px;
+      }
+
+      .dots {
+        margin-bottom: 2px;
+      }
+    }
+
+    .new-feedback {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-80px);
+      width: 160px;
+      padding: 8px 16px;
+      border-radius: 16px;
+      background-color: #0f83ff;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 10px;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .feedback {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 40px;
+      padding: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+
+      .left {
+        width: 40px;
+        height: 100%;
+        margin-right: 8px;
+
+        .avatar-wrapper {
+          width: 44px;
+          height: 44px;
+          // border: 1px solid black;
+          border-radius: 50%;
+
+          .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+
+            &.avatar-default {
+              background-image: url(../../../assets/img/common/incognito.png);
+            }
+          }
+        }
+      }
+
+      .right {
+        position: relative;
+        min-width: 188px;
+        max-width: calc(100% - 96px);
+        min-height: 80px;
+        padding-bottom: 24px;
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 10px;
+
+        .email {
+          padding: 4px 12px;
+          margin-bottom: 4px;
+          letter-spacing: 1px;
+          font-style: italic;
+
+          span {
+            font-size: 11px;
+            text-decoration: none !important;
+          }
+        }
+
+        .content {
+          max-height: 320px;
+          padding: 0 16px;
+          letter-spacing: 1px;
+          overflow: auto;
+        }
+
+        .time {
+          position: absolute;
+          bottom: 4px;
+          right: 6px;
+          font-size: 11px;
+          font-style: italic;
+        }
+      }
+
+      .has-reply {
+        width: 100%;
+        margin-top: 8px;
+        margin-left: 64px;
+
+        .wrapper {
+          display: flex;
+          align-items: center;
+          max-width: 200px;
+          cursor: pointer;
+
+          .icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            background-image: url(../../../assets/img/common/reply.png);
+          }
+
+          .text {
+            margin-bottom: 2px;
+            font-size: 12px;
+            font-style: italic;
+
+            .number-of-reply {
+              margin-right: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chatbox {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    height: 80px;
+
+    .wrapper {
+      position: relative;
+      height: 100%;
+
+      textarea {
+        padding: 8px 64px 8px 8px;
+        border-radius: 4px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: none;
+        outline: none;
+
+        &:focus {
+          border-color: #337ab7 !important;
+        }
+      }
+
+      .send {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        bottom: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: calc(100% - 4px);
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ebebeb;
+        }
+
+        .icon {
+          width: 24px;
+          height: 24px;
+          background-image: url(../../../assets/img/common/send.png);
+        }
+      }
+
+      .progess-spinner-loading {
+        position: absolute;
+      }
+    }
+  }
+
+  .loading-wrapper {
+    position: absolute;
+    inset: 16px;
+    top: 60px;
+    background-color: #fff;
+    overflow: hidden;
+
+    .loading-block {
+      position: relative;
+      width: 320px;
+      max-width: 90%;
+      height: 80px;
+      margin-bottom: 12px;
+
+      &.even {
+        width: 440px;
+
+        .open-loading {
+          animation: dim 2s linear infinite;
+          animation-delay: 0.3s;
+        }
+      }
+
+      &.odd {
+        .open-loading {
+          animation: dim 1.5s linear infinite;
+        }
+      }
+    }
+  }
+}

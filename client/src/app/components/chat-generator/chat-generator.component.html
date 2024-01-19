@@ -1,0 +1,85 @@
+<div class="gen-chat" [ngStyle]="{backgroundColor: bgColor}">
+  <div class="upload" *ngIf="step == 'upload' && !isLoading">
+    <uploader #uploader [multiple]="false" [allowedFileExtensions]="'.txt'" (onUpload)="upload($event)"></uploader>
+  </div>
+
+  <div class="choose-option" *ngIf="step == 'option' && !isLoading">
+    <div class="wrapper">
+      <div class="option-header">Thiết lập chung</div>
+      <div class="item speed">
+        <div class="title">Chọn tốc độ (1 - 10)</div>
+        <div class="value">
+          <!-- <dx-number-box [min]="1" [max]="10" [(value)]="speed" [showSpinButtons]="true"></dx-number-box> -->
+          <dx-slider [min]="1" [max]="10" valueChangeMode="onHandleRelease" [(value)]="speed">
+            <dxo-tooltip [enabled]="true" [format]="format" showMode="always" position="top"></dxo-tooltip>
+          </dx-slider>
+        </div>
+      </div>
+      <div class="item bg-color">
+        <div class="title">Chọn background</div>
+        <div class="value"><dx-color-box [(value)]="bgColor" [editAlphaChannel]="true"></dx-color-box></div>
+      </div>
+
+      <div class="item name">
+        <div class="title">Tên</div>
+        <div class="value">
+          <dx-text-box [(value)]="name"></dx-text-box>
+        </div>
+      </div>
+
+      <div class="item avatar bg-cover">
+        <div class="title">Chọn avatar</div>
+        <div class="value">
+          <input type="file" id="img" name="img" accept="image/*" (change)="changeAvatar($event, 1)">
+        </div>
+      </div>
+
+      <div class="item avatar bg-cover">
+        <div class="title">Chọn avatar 2</div>
+        <div class="value">
+          <input type="file" id="img" name="img" accept="image/*" (change)="changeAvatar($event, 2)">
+        </div>
+      </div>
+
+      <div class="item full-avatar">
+        <div class="title">Ảnh full</div>
+        <div class="value">
+          <dx-check-box [(value)]="isFull"></dx-check-box>
+        </div>
+      </div>
+
+      <div class="item run">
+        <base-button text="Tàu chạy" [width]="120" (onClick)="present()"></base-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-background" *ngIf="step == 'presentation'">
+    <div class="chat-header">
+      <div class="left">
+        <div class="back-icon">&#60;</div>
+        <div class="name">{{name}}</div>
+      </div>
+      <div class="right">
+        <div class="text">i</div>
+      </div>
+    </div>
+    <div class="chat" [ngClass]="[message.key, isFirstMessage(message.key, i) ? 'first' : '']"
+      *ngFor="let message of messages, index as i">
+      <div class="msg">
+        {{message.content}}
+      </div>
+
+      <div class="avatar" [ngClass]="[message.key]"
+        [ngStyle]="{backgroundImage: 'url(' + avatarUrl + ')', backgroundSize: isFull ? 'cover': 'contain'}"
+        *ngIf="message.key == 'SPK_1' && isFirstMessage(message.key, i)"></div>
+      <div class="avatar" [ngClass]="[message.key]"
+        [ngStyle]="{backgroundImage: 'url(' + avatarUrl2 + ')',backgroundSize: isFull ? 'cover': 'contain'}"
+        *ngIf="message.key == 'SPK_2' && isFirstMessage(message.key, i)"></div>
+      <div class="hook" [ngClass]="[message.key]">
+      </div>
+    </div>
+  </div>
+
+  <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

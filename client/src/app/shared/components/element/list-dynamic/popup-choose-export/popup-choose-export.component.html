@@ -1,0 +1,37 @@
+<div class="export-menu">
+  <p class="title" *ngIf="!isDone">Choose export type</p>
+  <div class="close-popup" (click)="data.callback()"></div>
+  <div class="content">
+    <mat-radio-group *ngIf="!isDone" aria-label="Please choose an export type" [value]="exportTypeSelected"
+      (change)="updateExportTypeSelected($event)">
+      <mat-radio-button [value]="ExportType.OnScreen" (click)="$event.stopPropagation()">
+        Export the displayed data to excel
+      </mat-radio-button>
+      <mat-radio-button [value]="ExportType.All" (click)="$event.stopPropagation()">
+        Export all data to excel
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <div *ngIf="!isDone" class="info-export-type">
+      <p *ngIf="exportTypeSelected === ExportType.OnScreen" [matTooltip]="infoExportOnScreen"><span>*</span>
+        {{infoExportOnScreen}}</p>
+      <p *ngIf="exportTypeSelected === ExportType.All" [matTooltip]="infoExportAll"><span>*</span> {{infoExportAll}}</p>
+    </div>
+
+    <div class="message" *ngIf="isShowMessage && !downloadSuccess" [matTooltip]="message">{{message}}</div>
+
+    <div *ngIf="isDone && !downloadSuccess" class="download" (click)="download()">
+      <div class="icon"></div>
+      <div class="text">Download</div>
+    </div>
+
+    <div class="download-success" *ngIf="downloadSuccess">
+      <div class="icon"></div>
+      <div class="text">Download successfully!</div>
+    </div>
+  </div>
+  <div *ngIf="!isDone" class="btn">
+    <base-button #exportBtn [actionExponents]="[ActionExponent.Export]" text="Export" [width]="120" [height]="32"
+      (onClick)="export()"></base-button>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="cpanel">
+    <div class="header">
+        <app-common-header></app-common-header>
+    </div>
+    <div class="sidebar">
+        <div class="router">
+            <a class="sidebar-item dashboard" href="/cpanel/dashboard"
+                [ngClass]="path == 'dashboard' ? 'selected' : ''">
+                <div class="icon bg-contain"></div>
+                <span class="text">Dashboard</span>
+            </a>
+            <a class="sidebar-item user" href="/cpanel/user" [ngClass]="path == 'user' ? 'selected' : ''">
+                <div class="icon bg-contain"></div>
+                <span class="text">Quản lý người dùng</span>
+            </a>
+            <a class="sidebar-item role" href="/cpanel/role" [ngClass]="path == 'role' ? 'selected' : ''">
+                <div class="icon bg-contain"></div>
+                <span class="text">Quản lý vai trò</span>
+            </a>
+        </div>
+
+        <div class="online dis-flex">
+            <app-online-user></app-online-user>
+        </div>
+
+    </div>
+    <div class="content">
+        <app-cpanel-dashboard *ngIf="path == 'dashboard'"></app-cpanel-dashboard>
+        <app-cpanel-user *ngIf="path == 'user'"></app-cpanel-user>
+        <app-cpanel-role *ngIf="path == 'role'"></app-cpanel-role>
+    </div>
+</div>

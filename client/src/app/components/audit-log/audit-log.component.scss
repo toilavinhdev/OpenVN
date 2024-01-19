@@ -1,0 +1,113 @@
+::ng-deep .action-logs {
+  height: 100%;
+
+  .header {
+    height: 60px;
+  }
+
+  .content {
+    position: relative;
+    height: calc(100% - 60px);
+    padding: 16px 16px 0 16px;
+
+    .log-content {
+      height: 100%;
+
+      .title {
+        position: sticky;
+        top: 0;
+        white-space: nowrap;
+        z-index: 998;
+
+        .item {
+          display: inline-block;
+          font-weight: bold;
+          background-color: #fff;
+        }
+      }
+
+      .wrapper {
+        height: calc(100% - 60px);
+        overflow: auto;
+
+        .log-line {
+          display: flex;
+          align-items: center;
+          min-height: 40px;
+          min-width: min-content;
+          border-bottom: 1px solid #ddd;
+        }
+      }
+
+      .paginator {
+        height: 60px;
+      }
+    }
+
+    .item {
+      min-height: 40px;
+      padding: 8px;
+      color: #333;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      cursor: context-menu;
+
+      &.ordinal {
+        min-width: 64px;
+        max-width: 64px;
+        text-align: right;
+      }
+
+      &.date {
+        min-width: 120px;
+        max-width: 120px;
+        font-weight: 400;
+      }
+
+      &.time {
+        min-width: 80px;
+        max-width: 80px;
+        font-weight: 400;
+      }
+
+      &.module {
+        min-width: 140px;
+        max-width: 140px;
+        font-weight: 400;
+      }
+
+      &.action {
+        min-width: 120px;
+        max-width: 120px;
+        font-weight: 400;
+      }
+
+      &.description {
+        max-height: 280px;
+        overflow: auto;
+
+        p {
+          word-break: break-all;
+          white-space: normal;
+        }
+
+        // &:hover {
+        //   overflow: auto;
+        // }
+      }
+
+      &.ip {
+        min-width: 160px;
+        max-width: 160px;
+        font-weight: 400;
+        text-align: center;
+      }
+    }
+  }
+
+  .progess-spinner-loading {
+    position: absolute;
+  }
+}

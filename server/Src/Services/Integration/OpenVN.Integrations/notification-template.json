@@ -1,0 +1,6 @@
+{
+  "SignInWarning": {
+    "Subject": "Security alert for {0}",
+    "Template": "<div class='wrapper' style='border: 1px solid #e5e5e5; border-radius: 6px; min-width: 300px; min-height: 360px; max-width: 400px; max-height: 98%; padding: 12px 16px; margin: 24px auto; background-color: #fff;'><h3 style='text-align: center; margin: 0px'>A new sign-in on {0}</h3><div>Hi <strong>{1}</strong>,</div><br/><div style='margin-bottom: 8px'>We noticed a new sign-in to your <strong>{2}</strong> account on a/an {3}.  If this was you, you don’t need to do anything. If not, we’ll help you secure your account.<br/></div><div>Time: <strong>{4}</strong></div><div>IP: <strong>{5}</strong></div><div>Device: <strong>{6}</strong></div><div>Browser: <strong>{7}</strong></div><div>Operating System: <strong>{8}</strong></div><div style='text-align: center; padding: 16px 0 4px 0; margin: 16px 0;'><a href='{9}' style='text-decoration: none; padding: 12px 16px; color: #fff; background-color: #4184f3; border: none; border-radius: 4px; outline: none; cursor: pointer !important;'>Check activity</a></div><div style='color: #555555'>Thanks,</div><div style='color: #555555'>The OpenVN Team</div></div>"
+  }
+}

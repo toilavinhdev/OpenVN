@@ -1,0 +1,101 @@
+.view-note {
+  position: relative;
+  min-height: 192px;
+  .wrapper {
+    padding: 8px 0;
+    .title {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .category {
+      color: #868686;
+      font-style: italic;
+    }
+    .content {
+      margin-bottom: 20px;
+      ::ng-deep {
+        .tox-tinymce {
+          border: none !important;
+        }
+        .tox-editor-header {
+          display: none !important;
+        }
+        .tox-statusbar {
+          display: none !important;
+        }
+      }
+    }
+    .last-modified-date,
+    .created-date {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin-top: 24px;
+      text-align: right;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+  .edit,
+  .remove,
+  .view-mode,
+  .public,
+  .private,
+  .close {
+    position: absolute;
+    top: -14px;
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .edit {
+    right: 24px;
+    background-image: url(../../../../../assets/img/notebook/edit.png);
+    &:hover {
+      background-image: url(../../../../../assets/img/notebook/edit-hover.png);
+    }
+  }
+  .remove {
+    right: 120px;
+    background-image: url(../../../../../assets/img/common/delete.png);
+    &:hover {
+      background-image: url(../../../../../assets/img/common/delete-hover.png);
+    }
+  }
+  .view-mode {
+    right: 88px;
+    outline: none;
+    border: none;
+    background-image: url(../../../../../assets/img/notebook/view.png);
+    &:hover {
+      background-image: url(../../../../../assets/img/notebook/view-hover.png);
+    }
+  }
+  .public {
+    right: 56px;
+    background-image: url(../../../../../assets/img/notebook/public.png);
+  }
+  .private {
+    right: 56px;
+    background-image: url(../../../../../assets/img/notebook/private.png);
+  }
+  .close {
+    right: -8px;
+    background-image: url(../../../../../assets/img/common/close-2.png);
+  }
+  ::ng-deep {
+    .progess-spinner-loading {
+      position: absolute;
+    }
+  }
+}
+
+::ng-deep {
+  .fucking-view {
+    min-height: 320px;
+    .mat-dialog-container {
+      padding: 24px 16px;
+    }
+  }
+}

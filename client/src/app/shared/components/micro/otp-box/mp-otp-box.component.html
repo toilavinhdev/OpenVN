@@ -1,0 +1,15 @@
+<div class="verify-box">
+    <div class="enter-otp-field">
+        <ng-otp-input [config]="{ length: length, allowNumbersOnly: allowNumbersOnly, isPasswordInput: isPasswordInput, disableAutoFocus: disableAutoFocus, placeholder: placeholder}" (onInputChange)="onChange($event)" [draggable]="true"></ng-otp-input>
+    </div>
+
+    <div class="verify-btn">
+        <base-button #verificationBtn [text]="verifyText" [disabled]="disabledBtn" [ngClass]="'full-width'" (onClick)="fireOTP($event)"></base-button>
+    </div>
+
+    <div class="re-provide-otp" *ngIf="allowResend">
+        <span>Did not receive the code? </span>
+        <span *ngIf="!isShowResend" style="font-weight: bold;">{{countdown | CountDownPipe}}</span>
+        <span *ngIf="isShowResend" class="resend" (click)="resend($event)">Resend now</span>?
+    </div>
+</div>

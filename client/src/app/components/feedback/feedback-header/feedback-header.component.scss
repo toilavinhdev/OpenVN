@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 4px 16px;
+  border-bottom: 1px solid #ebebeb;
+
+  .left {
+    display: flex;
+    align-items: center;
+
+    .launcher {
+      margin-right: 12px;
+    }
+  }
+
+  .right {
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

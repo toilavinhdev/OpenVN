@@ -1,0 +1,122 @@
+::ng-deep .generate-history {
+  height: 100%;
+
+  .header {
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .content {
+    position: relative;
+    height: calc(100% - 60px);
+    padding: 16px 16px 0 16px;
+
+    .generator-content {
+      height: 100%;
+
+      .title {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        white-space: nowrap;
+        z-index: 998;
+
+        .item {
+          display: inline-block;
+          font-weight: bold;
+          background-color: #fff;
+        }
+      }
+
+      .wrapper {
+        height: calc(100% - 60px);
+        overflow: auto;
+
+        .gen-line {
+          display: flex;
+          align-items: center;
+          min-height: 40px;
+          min-width: min-content;
+          border-bottom: 1px solid #ddd;
+          background-color: #fff;
+          transition: all 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #ececec;
+          }
+        }
+      }
+
+      .paginator {
+        height: 60px;
+      }
+    }
+
+    .item {
+      min-height: 40px;
+      padding: 8px;
+      color: #333;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+      &.ordinal {
+        min-width: 100px;
+        max-width: 100px;
+      }
+
+      &.date {
+        min-width: 140px;
+        max-width: 140px;
+        font-weight: 400;
+      }
+
+      &.time {
+        min-width: 120px;
+        max-width: 120px;
+        font-weight: 400;
+      }
+
+      &.file-name {
+        min-width: 420px;
+        max-width: 420px;
+        font-weight: 500;
+      }
+
+      &.status {
+        min-width: 120px;
+        max-width: 120px;
+        text-align: center;
+      }
+    }
+  }
+
+  .progess-spinner-loading {
+    position: absolute;
+  }
+}
+
+::ng-deep .user-man {
+  .upload {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 2px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-left: 2px;
+      margin-right: 12px;
+      background-image: url(../../../../assets/img/directory/upload.png);
+    }
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}

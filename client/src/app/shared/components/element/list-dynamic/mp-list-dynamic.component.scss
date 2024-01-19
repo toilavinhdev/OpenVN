@@ -1,0 +1,179 @@
+.list-dynamic {
+  height: 100%;
+  padding: 0;
+  .fn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 8px 16px;
+    background-color: #e2e4e9;
+    .fn-left {
+      display: flex;
+      align-items: center;
+      .unselect {
+        cursor: pointer;
+        color: #5252e3;
+        font-weight: 500;
+      }
+      ::ng-deep .filter-input {
+        position: relative;
+        .skeleton-loading {
+          opacity: 0.8;
+        }
+
+        .filter-advance {
+          position: absolute;
+          top: 1px;
+          right: 1px;
+          bottom: 1px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          border-top-right-radius: 2px;
+          border-bottom-right-radius: 2px;
+
+          cursor: pointer;
+          .icon {
+            width: 16px;
+            height: 16px;
+            background-image: url(../../../../assets/img/icons_v2.svg);
+            background-position: -144px 0px;
+            background-repeat: no-repeat;
+          }
+
+          &:hover {
+            background-color: #ebebeb;
+          }
+        }
+      }
+    }
+    .fn-right {
+      display: flex;
+      align-items: center;
+      .reload,
+      .export-excel,
+      .more {
+        margin-right: 16px;
+        background-image: url(../../../../assets/img/icons.svg);
+        background-repeat: no-repeat;
+        cursor: pointer;
+      }
+      .reload {
+        width: 24px;
+        height: 24px;
+        background-image: url(../../../../assets/img/reload.png);
+        background-size: cover;
+      }
+      .export-excel {
+        width: 28px;
+        height: 28px;
+        background-image: url(../../../../assets/img/excel.png);
+        background-size: cover;
+      }
+      .more {
+        width: 30px;
+        height: 30px;
+        margin-left: 16px;
+        background-image: url(../../../../assets/img/more.png);
+        background-size: cover;
+      }
+      .delete {
+        margin-right: 16px;
+      }
+    }
+  }
+  .grid {
+    position: relative;
+    height: calc(100% - 64px);
+    .loading-bottom {
+      position: absolute;
+      bottom: 100px;
+      left: calc(50% - 60px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 36px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      font-weight: bold;
+      z-index: 998;
+    }
+  }
+}
+
+::ng-deep {
+  .more-content {
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+      .icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        background-image: url(../../../../assets/img/icons.svg);
+        background-repeat: no-repeat;
+      }
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+    .item.print {
+      .icon {
+        background-position: -1990px -306px;
+      }
+    }
+    .item.import {
+      .icon {
+        background-position: -798px -308px;
+      }
+    }
+    .item.reload {
+      display: none;
+      .icon {
+        background-position: -423px -201px;
+      }
+    }
+    .item.export {
+      display: none;
+      .icon {
+        background-position: -704px -200px;
+      }
+    }
+  }
+  .mat-menu-panel {
+    min-height: 16px !important;
+    .mat-menu-content:not(:empty) {
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  ::ng-deep {
+    .fn-left {
+      .filter-input {
+        width: 160px !important;
+      }
+    }
+    .fn-right {
+      .export-excel,
+      .reload {
+        display: none !important;
+      }
+    }
+    .more-content {
+      .item.export,
+      .item.reload {
+        display: flex !important;
+      }
+    }
+  }
+}

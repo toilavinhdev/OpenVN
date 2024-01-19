@@ -1,0 +1,38 @@
+<div #notebook class="notebook-v2" (scroll)="onScroll($event)">
+  <div class="notebook-header-wrapper" [ngClass]="isScrolled ? 'scroll' : ''">
+    <app-common-header #commonHeader [isShowOnlineUser]="false">
+      <div class="search" left-ng-content>
+        <dx-text-box id="searchInstance" mode="search" placeholder="{{'COMMON.SEARCH' | translate}}"
+          [width]="searchWidth" [(value)]="query" (onValueChanged)="reload()"></dx-text-box>
+      </div>
+
+      <div class="mode" user-man-above-ng-content>
+        <div class="text">Kaban mode: </div>
+        <div class="switch">
+          <dx-switch [value]="configService?.userConfig?.configValue?.notebookType == NotebookType.Kanban"
+            (onValueChanged)="changeNotebookType($event)"></dx-switch>
+        </div>
+      </div>
+    </app-common-header>
+  </div>
+
+  <div class="notebook-content-wrapper"
+    [ngClass]="configService?.userConfig?.configValue?.notebookType == NotebookType.Kanban ? 'kanban' : 'list'">
+    <div class="add-new">
+      <app-notebook-add #notebookAdd (refreshData)="refresh($event)"></app-notebook-add>
+    </div>
+
+    <div class="list-notes" *ngIf="configService?.userConfig?.configValue?.notebookType == NotebookType.List">
+      <app-notebook-list #notebookList [query]="query" (addNoteEvent)="addNote($event)"></app-notebook-list>
+    </div>
+
+    <div class="kanban-notes" *ngIf="configService?.userConfig?.configValue?.notebookType == NotebookType.Kanban">
+      <app-notebook-kanban #notebookList [query]="query" (addNoteEvent)="addNote($event)"></app-notebook-kanban>
+    </div>
+  </div>
+
+</div>
+
+<div class="load-tiny" style="visibility: visible;">
+  <editor [init]="config" [disabled]="true"></editor>
+</div>

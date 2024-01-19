@@ -1,0 +1,379 @@
+::ng-deep .notebook-list {
+  position: relative;
+  height: 100%;
+
+  .list-note-wrapper {
+    height: 100%;
+
+    .category {
+      padding: 0 16px;
+
+      .category-box {
+        min-height: 56px;
+        margin-bottom: 24px;
+
+        ::ng-deep .category-name {
+          display: flex;
+          align-items: center;
+          margin-left: 12px;
+          margin-bottom: 12px;
+          color: #616161;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+
+          &:hover {
+            .text {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+
+            .edit,
+            .remove {
+              display: block;
+            }
+          }
+
+          .expand,
+          .k-collapse {
+            width: 12px;
+            height: 12px;
+            margin-left: 8px;
+            background-image: url(../../../../assets/img/notebook/collapse.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            cursor: pointer;
+          }
+
+          .k-collapse {
+            background-image: url(../../../../assets/img/notebook/collapse.png);
+            transform: rotate(-90deg);
+          }
+
+          .edit,
+          .remove,
+          .update,
+          .cancel {
+            margin-left: 12px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            cursor: pointer;
+          }
+
+          .edit {
+            display: none;
+            width: 13px;
+            height: 13px;
+            background-image: url(../../../../assets/img/common/edit.png);
+          }
+
+          .remove {
+            display: none;
+            width: 13px;
+            height: 13px;
+            background-image: url(../../../../assets/img/common/delete.png);
+          }
+
+          .update {
+            width: 20px;
+            height: 20px;
+            margin-top: 4px;
+            background-image: url(../../../../assets/img/notebook/checkmark.png);
+          }
+
+          .cancel {
+            width: 20px;
+            height: 20px;
+            margin-top: 4px;
+            background-image: url(../../../../assets/img/common/cancel.png);
+          }
+
+          .mat-form-field-wrapper div.mat-form-field-flex {
+            background: none !important;
+          }
+
+          .mat-input-element {
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+          }
+        }
+
+        .notes {
+          position: relative;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .note {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 200px;
+            max-width: 248px;
+            min-height: 100px;
+            max-height: 360px;
+            padding: 16px 24px;
+            margin: 0 12px 12px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background-color: #fff;
+            overflow: hidden;
+            cursor: default;
+
+            .note-title {
+              height: 20px;
+              margin-bottom: 12px;
+              font-weight: 500;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
+            .note-content {
+              max-height: 260px;
+              margin-bottom: 12px;
+              overflow: hidden;
+
+              // text-overflow: ellipsis;
+              // white-space: nowrap;
+              ::ng-deep {
+                .tox-tinymce {
+                  border: none !important;
+                }
+
+                .tox-editor-header {
+                  display: none !important;
+                }
+
+                .tox-statusbar {
+                  display: none !important;
+                }
+              }
+            }
+
+            .note-function {
+              visibility: hidden;
+              display: flex;
+              height: 24px;
+              padding: 4px 0;
+
+              .item {
+                width: 16px;
+                height: 16px;
+                margin-right: 12px;
+                background-repeat: no-repeat;
+                background-size: contain;
+                transition: all 0.3s;
+
+                &.notification {
+                  background-image: url(../../../../assets/img/notebook/bell.png);
+
+                  &:hover {
+                    background-image: url(../../../../assets/img/notebook/bell-hover.png);
+                  }
+                }
+
+                &.edit {
+                  background-image: url(../../../../assets/img/notebook/edit.png);
+
+                  &:hover {
+                    background-image: url(../../../../assets/img/notebook/edit-hover.png);
+                  }
+                }
+
+                &.background-color {
+                  background-image: url(../../../../assets/img/notebook/color.png);
+
+                  &:hover {
+                    background-image: url(../../../../assets/img/notebook/color-hover.png);
+                  }
+                }
+
+                &.remove {
+                  background-image: url(../../../../assets/img/notebook/trash.png);
+
+                  &:hover {
+                    background-image: url(../../../../assets/img/notebook/trash-hover.png);
+                  }
+                }
+
+                &.view-mode {
+                  background-image: url(../../../../assets/img/notebook/view.png);
+
+                  &:hover {
+                    background-image: url(../../../../assets/img/notebook/view-hover.png);
+                  }
+                }
+              }
+            }
+
+            .pin-icon {
+              position: absolute;
+              top: 4px;
+              right: 4px;
+              display: none;
+              width: 16px;
+              height: 16px;
+              background-image: url(../../../../assets/img/notebook/pin-white.png);
+              background-repeat: no-repeat;
+              background-size: contain;
+            }
+
+            &:hover {
+              box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px;
+
+              .pin-icon {
+                display: block;
+              }
+
+              .note-function {
+                visibility: visible;
+              }
+            }
+
+            ::ng-deep .progess-spinner-loading {
+              position: absolute;
+            }
+          }
+
+          .note.pinned {
+            .pin-icon {
+              display: block !important;
+              background-image: url(../../../../assets/img/notebook/pin.png);
+            }
+          }
+
+          .add-note {
+            display: none;
+            width: 24px;
+            height: 24px;
+            margin-left: 12px;
+            background-image: url(../../../../assets/img/notebook/add-note.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .category-box:hover {
+        .add-note {
+          display: block !important;
+        }
+      }
+
+      &.dragging {
+        background-color: #ebebeb;
+      }
+    }
+
+    ::ng-deep .add-category {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 240px;
+      min-height: 40px;
+      padding: 0 0 48px 20px;
+      margin-bottom: 24px;
+      span:hover,
+      .add-icon:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      span {
+        padding-left: 8px;
+        color: #616161;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .add-icon {
+        width: 20px;
+        height: 20px;
+        background-image: url(../../../../assets/img/plus.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .mat-form-field-wrapper div.mat-form-field-flex {
+        background: none !important;
+      }
+
+      .mat-input-element {
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+      }
+    }
+  }
+
+  .loading-wrapper {
+    height: 100%;
+    .loading-block {
+      position: relative;
+      display: inline-block;
+      width: 280px;
+      height: 80px;
+      margin: 12px;
+
+      &.even {
+        .open-loading {
+          animation: dim 2s linear infinite;
+          animation-delay: 0.3s;
+        }
+      }
+      &.odd {
+        .open-loading {
+          animation: dim 1.5s linear infinite;
+        }
+      }
+
+      .open-loading {
+        position: absolute;
+      }
+    }
+  }
+
+  &.mobile {
+    .note {
+      min-width: 120px !important;
+      min-height: 80px !important;
+      max-width: 168px !important;
+      max-height: 320px !important;
+    }
+  }
+}
+
+::ng-deep {
+  .color-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .color {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      margin: 0 2px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+
+      &.selected {
+        .checkmark {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../../../assets/img/notebook/checkmark.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  ::ng-deep .loading-block.odd {
+    width: 100% !important;
+  }
+}

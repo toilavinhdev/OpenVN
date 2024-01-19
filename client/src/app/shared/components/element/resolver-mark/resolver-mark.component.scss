@@ -1,0 +1,60 @@
+.resolver {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    z-index: 1000;
+
+    .wrapper {
+        width: 240px;
+        height: 200px;
+        padding: 8px 16px;
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin: 8px auto;
+            background-image: url(../../../../assets/img/github_logo.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+
+        .bar-progress {
+            width: 208px;
+            height: 2px;
+            border-radius: 2px;
+            background-color: #1774e7;
+            background: linear-gradient(100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%) #1774e7;
+            background-size: 200% 100%;
+            background-position-x: 180%;
+            animation: 1.2s shine linear infinite !important;
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+            .text, .dots {
+                font-size: 11px;
+                color: #1774e7;
+                text-align: center;
+                letter-spacing: 1px;
+            }
+            .dots {
+                display: inline-block;
+                width: 20px;
+                text-align: left;
+            }
+        }
+    }
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}

@@ -1,0 +1,103 @@
+::ng-deep .notebook-view-mode {
+  position: relative;
+  min-height: 100%;
+  padding: 24px;
+
+  .wrapper {
+    min-height: 100%;
+
+    .title {
+      text-align: center;
+      color: #616161;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      .text {
+        margin-right: 8px;
+      }
+    }
+
+    .view-mode {
+      .tox-tinymce {
+        border: none !important;
+      }
+
+      .tox-editor-header {
+        display: none !important;
+      }
+
+      .tox-statusbar {
+        display: none !important;
+      }
+    }
+
+    .edit-mode {
+      margin-top: 24px;
+    }
+  }
+
+  .access-denied {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 120px;
+
+    .message {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .guard {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+      background-image: url(../../../assets/img/guard.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+}
+
+.close-btn {
+  position: fixed;
+  top: 8px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../assets/img/common/close.png);
+  background-color: #fff;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.save-btn {
+  position: fixed;
+  top: 8px;
+  right: 100px;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.cancel-btn {
+  position: fixed;
+  top: 8px;
+  right: 20px;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.edit-btn {
+  position: fixed;
+  top: 10px;
+  right: 48px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../../../assets/img/notebook/edit.png);
+  background-color: #fff;
+  z-index: 999;
+  cursor: pointer;
+}

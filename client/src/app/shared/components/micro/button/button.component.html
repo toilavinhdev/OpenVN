@@ -1,0 +1,47 @@
+<div class="base-button" #baseBtn *ngIf="buttonType === ButtonType.RAISED">
+  <button mat-raised-button [color]="color" [disabled]="disabled" [ngClass]="class" [ngStyle]="style"
+    [draggable]="draggable" [autofocus]="autofocus" [name]="name" [value]="value" [hidden]="hidden"
+    (click)="clickExecute($event)" (dblclick)="dlclickExecute($event)">
+    <div style="
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.DONE">{{IconButtonType.DONE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.ADD">{{IconButtonType.ADD}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.SAVE">{{IconButtonType.SAVE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.DELETE">{{IconButtonType.DELETE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.EDIT">{{IconButtonType.EDIT}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.POST_ADD">{{IconButtonType.POST_ADD}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.BACK">{{IconButtonType.BACK}}</mat-icon>
+
+      <span *ngIf="isFinished" class="mp-button-text">{{ text }}</span>
+      <mat-spinner *ngIf="!isFinished"></mat-spinner>
+    </div>
+  </button>
+</div>
+
+<div class="base-button" #baseBtn *ngIf="buttonType === ButtonType.STROKED">
+  <button mat-stroked-button [color]="color" [disabled]="disabled" [ngClass]="class" [ngStyle]="style"
+    [draggable]="draggable" [autofocus]="autofocus" [name]="name" [value]="value" [hidden]="hidden"
+    (click)="clickExecute($event)" (dblclick)="dlclickExecute($event)">
+    <div style="
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.DONE">{{IconButtonType.DONE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.ADD">{{IconButtonType.ADD}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.SAVE">{{IconButtonType.SAVE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.DELETE">{{IconButtonType.DELETE}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.EDIT">{{IconButtonType.EDIT}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.POST_ADD">{{IconButtonType.POST_ADD}}</mat-icon>
+      <mat-icon *ngIf="isFinished && iconButtonType === IconButtonType.BACK">{{IconButtonType.BACK}}</mat-icon>
+
+      <span *ngIf="isFinished" class="mp-button-text">{{ text }}</span>
+      <mat-spinner *ngIf="!isFinished"></mat-spinner>
+    </div>
+  </button>
+</div>

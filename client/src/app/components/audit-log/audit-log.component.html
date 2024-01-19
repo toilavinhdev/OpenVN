@@ -1,0 +1,38 @@
+<div class="action-logs">
+  <div class="header">
+    <app-common-header></app-common-header>
+  </div>
+  <div class="content">
+    <div class="log-content">
+      <div class="wrapper">
+        <div class="title">
+          <div class="item ordinal">{{'AUDIT.ORDINAL' | translate}}</div>
+          <div class="item date">{{'AUDIT.DATE' | translate}}</div>
+          <div class="item time">{{'AUDIT.TIME' | translate}}</div>
+          <div class="item module">{{'AUDIT.MODULE' | translate}}</div>
+          <div class="item action">{{'AUDIT.ACTION' | translate}}</div>
+          <div class="item description" [ngStyle]="{width: descriptionWidth + 'px', maxWidth: descriptionWidth + 'px'}">{{'AUDIT.DESCRIPTION' | translate}}</div>
+          <div class="item ip">{{'AUDIT.IP_ADDRESS' | translate}}</div>
+        </div>
+        <div class="log-line" *ngFor="let log of logs; index as i">
+          <div class="item ordinal">{{(paginationRequest.pageIndex * paginationRequest.pageSize + i + 1)}}</div>
+          <div class="item date">{{log.timestamp | DateVietnamPipe}}</div>
+          <div class="item time">{{log.timestamp | TimePipe}}</div>
+          <div class="item module">{{log.displayModule}}</div>
+          <div class="item action">{{log.displayAction}}</div>
+          <div class="item description" [innerHTML]="log.description" [ngStyle]="{width: descriptionWidth + 'px', maxWidth: descriptionWidth + 'px'}"></div>
+          <div class="item ip">{{log.ipAddress || '-'}}</div>
+        </div>
+      </div>
+
+      <div class="paginator">
+        <mat-paginator #matPaginator aria-label="Select page" [length]="total" [pageIndex]="paginationRequest.pageIndex"
+          [pageSize]="paginationRequest.pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true"
+          (page)="changePage($event)">
+        </mat-paginator>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+  </div>
+</div>

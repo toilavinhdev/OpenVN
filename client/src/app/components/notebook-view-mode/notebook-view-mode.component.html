@@ -1,0 +1,31 @@
+<div class="notebook-view-mode">
+  <div class="wrapper">
+
+    <div class="title" *ngIf="!isLoading && note">
+      <span class="text">{{note.title}}</span> <span>({{note.categoryName}})</span>
+    </div>
+
+    <editor #tinymce *ngIf="!isLoading && note && isView" [(ngModel)]="note.content" [init]="config" [disabled]="true" class="view-mode"></editor>
+    <editor #tinymce *ngIf="!isLoading && note && !isView" [(ngModel)]="note.content" [init]="config" class="edit-mode"></editor>
+
+    <progess-spinner-loading *ngIf="isLoading || isLoadingEditor"></progess-spinner-loading>
+  </div>
+
+  <div *ngIf="!note && !isLoading" class="access-denied">
+    <span class="guard"></span>
+    <span class="message">Access denied</span>
+  </div>
+</div>
+
+<div class="edit-btn bg-contain" (click)="changeMode(false)" matTooltip="Edit"
+  *ngIf="isView && ownerId == note?.ownerId"></div>
+<div class="close-btn bg-contain" (click)="back()" matTooltip="Back to notebook" *ngIf="isView"></div>
+<!-- <div class="view-btn bg-contain" (click)="changeMode(true)" *ngIf="!isView"></div> -->
+
+<base-button #saveBtn text="Save" *ngIf="!isView" [height]="32" class="save-btn" [buttonType]="ButtonType.STROKED"
+  [iconButtonType]="IconButtonType.SAVE" (onClick)="save()">
+</base-button>
+
+<base-button text="Cancel" *ngIf="!isView" [height]="32" class="cancel-btn" [buttonType]="ButtonType.STROKED"
+  [color]="ButtonColor.WARN" [finishImmediately]="true" (onClick)="changeMode(true)">
+</base-button>

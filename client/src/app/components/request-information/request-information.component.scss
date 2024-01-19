@@ -1,0 +1,44 @@
+.request-information {
+  height: 100%;
+  .header {
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+  }
+  .content {
+    height: calc(100% - 60px);
+    padding: 16px;
+    .wrapper {
+      height: 100%;
+      .item {
+        // display: flex;
+        // align-items: center;
+        // justify-content: space-between;
+        margin-bottom: 12px;
+        .title {
+          width: 120px;
+        }
+        .value {
+          max-width: 240px;
+          margin-left: 4px;
+          font-weight: 500;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        span {
+          display: inline-block;
+          letter-spacing: 1px;
+          color: #616161;
+          cursor: context-menu;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 368px) {
+  .title, .value {
+    width: 100% !important;
+  }
+}

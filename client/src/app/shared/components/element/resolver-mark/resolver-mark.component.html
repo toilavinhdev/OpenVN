@@ -1,0 +1,14 @@
+<div class="resolver">
+  <div class="wrapper">
+    <div class="logo"></div>
+    <div class="bar-progress" [style]="{width: w}"></div>
+    <div class="loading-text" *ngIf="authService.refreshing">
+      <span class="text">{{'COMMON.AUTHENTICATING' | translate }}</span>
+      <span class="dots">{{dots}}</span>
+    </div>
+    <div class="loading-text" *ngIf="isShow && !authService.refreshing">
+      <span class="text">{{loadingText}}</span>
+      <span class="dots">{{dots}}</span>
+    </div>
+  </div>
+</div>

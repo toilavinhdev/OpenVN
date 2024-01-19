@@ -1,0 +1,9 @@
+<div class="cpanel-user">
+  <base-grid *ngIf="!isLoading" #grid [data]="users" [isLoading]="isLoading" [displayColumn]="displayColumn" [virtualScroll]="false"
+    [enabledCheck]="false" [enabledEdit]="false" [pageIndex]="paginationRequest.pageIndex"
+    [pageSize]="paginationRequest.pageSize" [pageSizeOptions]="pageSizeOptions" [current]="current" [total]="total" [enabledEdit]="true"
+    (changePageEvent)="changePage($event)">
+  </base-grid>
+
+  <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

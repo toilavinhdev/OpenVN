@@ -1,0 +1,61 @@
+:host::ng-deep .base-button {
+  transition: all 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
+  button {
+    width: 100%;
+    height: 100%;
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+    .mp-button-text {
+      font-weight: 400;
+    }
+  }
+  .mat-raised-button.mat-primary {
+      background-color: #0f83ff;
+  }
+  .mat-button-disabled {
+    background-color: rgba(0,0,0,.12) !important;
+  }
+
+  .mat-stroked-button {
+    background-color: #fff;
+  }
+
+  .mat-icon {
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 8px;
+  }
+  .material-icons {
+    font-size: 16px !important;
+  }
+}
+
+::ng-deep {
+  .full-width {
+    width: 100%;
+    .base-button {
+      button {
+        width: 100% !important;
+      }
+    }
+  }
+  .mat-spinner {
+    width: 24px !important;
+    height: 36px !important;
+    svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px !important;
+      height: 100% !important;
+    }
+  }
+}

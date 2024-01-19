@@ -1,0 +1,30 @@
+.sign-in-logging {
+  position: relative;
+  height: 100%;
+  .header {
+    height: 60px;
+  }
+  .content {
+    position: relative;
+    height: calc(100% - 60px);
+  }
+
+  ::ng-deep {
+    .row-item:nth-child(2n) {
+      .column {
+        background-color: rgb(240, 240, 240);
+        &:first-child {
+          background-color: rgb(240, 240, 240) !important;
+        }
+      }
+    }
+    .row-item:hover {
+      .column {
+        background-color: #ddd !important;
+        &:first-child {
+          background-color: #ddd !important;
+        }
+      }
+    }
+  }
+}

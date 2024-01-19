@@ -1,0 +1,161 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: monospace, Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+    font-size: 13px;
+}
+
+button {
+    outline: none !important;
+}
+
+.dis-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-contain {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.bg-cover {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.over-3-dots {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    transition: all 1s;
+    overflow-y: auto;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: rgb(189, 189, 189);
+    border-radius: 2px;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(156, 156, 156);
+}
+
+#notification-hook {
+    visibility: hidden;
+    position: fixed;
+    bottom: 100px;
+    right: -400px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 420px;
+    max-width: 80%;
+    height: 96px;
+    max-height: 50%;
+    // border-radius: 4px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 10px;
+    transition: all 0.3s;
+    z-index: 2222;
+    cursor: pointer;
+    .vertical {
+        width: 4px;
+        height: 100%;
+        // border-top-left-radius: 4px;
+        // border-bottom-left-radius: 4px;
+    }
+    .icon {
+        width: 44px;
+        height: 44px;
+        margin: 0 12px;
+    }
+    .message {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 72px);
+        height: calc(100% - 8px);
+        padding: 8px 16px 8px 0;
+        margin: 4px 0;
+        color: #333;
+        font-size: 12px;
+        letter-spacing: 1px;
+        overflow: hidden;
+    }
+    &.success {
+        .icon {
+            background-image: url(./assets/img/common/success.png);
+        }
+        .vertical {
+            background-color: #4caf50;
+        }
+    }
+    &.warning {
+        .icon {
+            background-image: url(./assets/img/common/warning.png);
+        }
+        .vertical {
+            background-color: #ffeb3b;
+        }
+    }
+    &.danger {
+        .icon {
+            background-image: url(./assets/img/common/danger.png);
+        }
+        .vertical {
+            background-color: #f44336;
+        }
+    }
+}
+
+@keyframes dim {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.3;
+    }
+}
+
+@keyframes online-blink {
+    100% {
+        transform: scale(2, 2);
+        opacity: 0;
+    }
+}

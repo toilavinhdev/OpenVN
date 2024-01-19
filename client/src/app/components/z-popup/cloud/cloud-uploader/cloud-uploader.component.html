@@ -1,0 +1,39 @@
+<div class="cloud-uploader">
+  <div class="title">
+    <span>{{'CLOUD.UPLOAD_TO' | translate}}</span>
+    <span class="directory">{{directory.name}}</span>
+    <span class="total-files" *ngIf="uploader && uploader.files && uploader.files.length">({{uploader.files.length}} file(s))</span>
+  </div>
+  <div class="content">
+    <uploader #uploader *ngIf="!isLoading" [allowedFileExtensions]="'*'" (onUpload)="upload($event)"></uploader>
+
+    <div *ngIf="isLoading" class="processing">
+      <div class="processing-wrapper">
+        <div class="events">
+          <div class="event" *ngFor="let event of events">
+            <div class="file-name">{{event.file.name}}</div>
+            <div class="status bg-cover"
+              [ngClass]="{'pending': event.status == 0, 'success': event.status == 1, 'failed': event.status == 2}"
+              [matTooltip]="event.message"></div>
+          </div>
+        </div>
+
+        <div class="count-wrapper">
+          <div class="count-event pending-events">
+            <span>{{'COMMON.PROCESSING' | translate}}: </span> <span>{{pendingCount}}</span>
+          </div>
+          <div class="count-event sucess-events">
+            <span>{{'COMMON.SUCCESS' | translate}}: </span> <span>{{successCount}}</span>
+          </div>
+          <div class="count-event failed-events">
+            <span>{{'COMMON.FAILED' | translate}}: </span> <span>{{failedCount}}</span> <span class="retry"
+              *ngIf="failedCount > 0 && pendingCount == 0" (click)="retry()"
+              matTooltip="Reupload failed files">[{{'COMMON.REUPLOAD' | translate}}]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="close-btn" (click)="dialogRef.close()"></div>
+</div>

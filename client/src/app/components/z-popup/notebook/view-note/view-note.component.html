@@ -1,0 +1,30 @@
+<div class="view-note">
+  <div class="wrapper">
+    <h4 class="title">
+      {{note.title}} <span class="category">{{(note.categoryName)}}</span>
+    </h4>
+
+    <div class="content">
+      <editor #tinymce *ngIf="!isLoading" [(ngModel)]="note.content" [init]="config" [disabled]="true"></editor>
+      <progess-spinner-loading *ngIf="isLoadingEditor"></progess-spinner-loading>
+    </div>
+
+    <div class="created-date" *ngIf="!isLoading && !note.lastModifiedDate">
+      {{note.createdDate | DateTimeVietnamPipe}}
+    </div>
+
+    <div class="last-modified-date" *ngIf="!isLoading && note.lastModifiedDate"
+      [matTooltip]="'Created at ' + (note.createdDate | DateTimeVietnamPipe)">
+      Edited {{note.lastModifiedDate | DateTimeVietnamPipe}}
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading" class="remove bg-contain" matTooltip="{{'NOTEBOOK.REMOVE_TOOLTIP' | translate}}" (click)="remove(note)"></div>
+  <a *ngIf="!isLoading" class="view-mode bg-contain" matTooltip="{{'NOTEBOOK.VIEW_MODE_TOOLTIP' | translate}}" [href]="Routing.NOTEBOOK_VIEW_MODE.path + '/' + note.id" target="_blank" (click)="$event.stopPropagation()"></a>
+  <div *ngIf="!isLoading && !note.isPublic" class="public bg-contain" matTooltip="{{'NOTEBOOK.PUBLIC_TOOLTIP' | translate}}" (click)="changeMode(note, true)"></div>
+  <div *ngIf="!isLoading && note.isPublic" class="private bg-contain" matTooltip="{{'NOTEBOOK.PRIVATE_TOOLTIP' | translate}}" (click)="changeMode(note, false)"></div>
+  <div *ngIf="!isLoading" class="edit bg-contain" matTooltip="{{'NOTEBOOK.EDIT_TOOLTIP' | translate}}" (click)="edit(note)"></div>
+  <div  class="close bg-contain" matTooltip="{{'COMMON.CLOSE' | translate}}" (click)="close()"></div>
+
+  <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

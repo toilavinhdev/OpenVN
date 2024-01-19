@@ -1,0 +1,40 @@
+<ng-container>
+  <!-- title  -->
+  <h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle
+    style="margin-bottom: 8px !important;">
+    <span>{{message.data.title || ""}}</span>
+  </h2>
+
+  <!-- content -->
+  <mat-dialog-content style="margin-bottom: 16px;">
+    <span>{{message.data.content}}</span>
+  </mat-dialog-content>
+
+  <!-- actions  -->
+
+  <!-- confirm  -->
+  <mat-dialog-actions align="end" *ngIf="message.data.boxType == MessageBoxType.Confirm" cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <button mat-stroked-button mat-dialog-close> {{'COMMON.CANCEL' | translate }} </button>
+
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="confirm($event)">
+      {{'COMMON.AGREE' | translate}} </button>
+  </mat-dialog-actions>
+
+  <!-- confirm delete  -->
+  <mat-dialog-actions align="end" *ngIf="message.data.boxType == MessageBoxType.ConfirmDelete" cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <button mat-stroked-button mat-dialog-close> {{'COMMON.CANCEL' | translate }} </button>
+
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" (click)="confirmDelete($event)">
+      {{'COMMON.DELETE' | translate}} </button>
+  </mat-dialog-actions>
+
+  <!-- infomation  -->
+  <mat-dialog-actions align="end" *ngIf="message.data.boxType == MessageBoxType.Information" cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="agree($event)">
+      {{'COMMON.AGREE' | translate}} </button>
+  </mat-dialog-actions>
+
+</ng-container>

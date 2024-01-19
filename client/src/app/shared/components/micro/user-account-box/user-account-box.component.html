@@ -1,0 +1,108 @@
+<div class="user-account-box">
+
+  <div *ngIf="!isNoAvatar" class="item bg-cover avatar" [matMenuTriggerFor]="menu"
+    [ngStyle]="{backgroundImage: 'url(' + avatarUrl + ')'}" (click)="openMenu()">
+    <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+  </div>
+
+  <div *ngIf="isNoAvatar" class="item bg-cover avatar default-avatar" [matMenuTriggerFor]="menu" (click)="openMenu()">
+    <span class="short-name">{{shortName}}</span>
+    <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <div class="manager-content" style="padding: 12px 24px">
+    <div class="item">
+      <div *ngIf="!isNoAvatar" class="avatar" [ngStyle]="{backgroundImage: 'url(' + avatarUrl + ')'}"
+        [matMenuTriggerFor]="avatarManagement" (click)="stopEvent($event)">
+        <div *ngIf="!isLoadingAvatar" class="camera">
+          <div class="camera-icon"></div>
+        </div>
+        <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+      </div>
+
+      <div *ngIf="isNoAvatar" class="avatar default-avatar" (click)="uploadAvatar($event)">
+        <span class="short-name">{{shortName}}</span>
+        <div *ngIf="!isLoadingAvatar" class="camera">
+          <div class="camera-icon"></div>
+        </div>
+        <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+      </div>
+    </div>
+
+    <div class="item full-name">
+      <span class="over-3-dots">{{ fullName }}</span>
+      <skeleton-loading *ngIf="isLoadingInformation"></skeleton-loading>
+    </div>
+
+    <div class="item ip">
+      <div class="icon"></div>
+      <div class="text">{{ipInformation.ip}}</div>
+      <skeleton-loading *ngIf="isLoadingIp"></skeleton-loading>
+    </div>
+
+    <div class="item feedback" (click)="feedback($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.FEEDBACK' | translate}}</div>
+    </div>
+
+    <div class="item help" (click)="Utility.featureIsInDevelopment($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.HELP_AND_SUPPORT' | translate}}</div>
+    </div>
+
+    <div class="item setting" (click)="Utility.featureIsInDevelopment($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.SETTING_AND_PRIVACY' | translate}}</div>
+    </div>
+
+    <!-- <div class="item audit" (click)="redirect(Routing.AUDIT_LOG.path)">
+          <div class="icon"></div>
+          <div class="text">{{'HEADER.AUDIT' | translate}}</div>
+      </div> -->
+
+    <div class="item language" [ngClass]="sharedService.currentLanguage" (click)="$event.stopPropagation()"
+      [matMenuTriggerFor]="chooseLanguage">
+      <div class="icon"></div>
+      <div class="text">
+        <span class="label">{{'SETTING.CURRENT_LANGUAGE_LABEL' | translate}}:</span>
+        <span class="current-lang">{{'SETTING.CURRENT_LANGUAGE' | translate}}</span>
+      </div>
+    </div>
+
+    <div class="item signout">
+      <base-button #signoutBtn [color]="ButtonColor.WARN" text="{{'SIGN_IN.SIGN_OUT_BUTTON_TEXT' | translate}}"
+        (onClick)="signOut()" [width]="240" [height]="44">
+      </base-button>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #chooseLanguage>
+  <div class="choose-language">
+      <div class="lang en" *ngIf="sharedService.currentLanguage == 'en-US'" (click)="translationService.use('vi-VN')">
+          <span class="flag"></span>
+          <div class="text">Việt Nam</div>
+      </div>
+      <div class="lang vi" *ngIf="sharedService.currentLanguage == 'vi-VN'" (click)="translationService.use('en-US')">
+          <span class="flag"></span>
+          <div class="text">English</div>
+      </div>
+  </div>
+</mat-menu>
+
+
+<mat-menu #avatarManagement class="avatar-management">
+  <div class="wrapper">
+      <div class="item update" (click)="uploadAvatar($event)">
+          <div class="icon"></div>
+          <div class="text">{{'USER.UPDATE_AVATAR_TEXT' | translate}}</div>
+      </div>
+
+      <div class="item remove" (click)="removeAvatar($event)">
+          <div class="icon"></div>
+          <div class="text">{{'USER.REMOVE_AVATAR_TEXT' | translate}}</div>
+      </div>
+  </div>
+</mat-menu>

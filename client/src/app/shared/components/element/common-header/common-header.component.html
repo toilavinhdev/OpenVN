@@ -1,0 +1,54 @@
+<div class="common-header" #header [ngClass]="isOpened ? 'opened' : ''">
+  <div class="wrapper">
+    <div class="left">
+      <div class="item launcher">
+        <app-launcher></app-launcher>
+      </div>
+
+      <div class="online" *ngIf="isShowOnlineUser">
+        <app-online-user></app-online-user>
+      </div>
+
+      <ng-content select="[left-ng-content]"></ng-content>
+    </div>
+
+    <div class="right">
+      <ng-content select="[right-ng-content-left]"></ng-content>
+
+      <div class="item bg-cover user" [matMenuTriggerFor]="user" *ngIf="SharedService.DeviceType == DeviceType.Desktop">
+      </div>
+
+      <div class="item dis-flex" *ngIf="SharedService.DeviceType == DeviceType.Desktop">
+        <app-messenger></app-messenger>
+      </div>
+
+      <div class="item dis-flex">
+        <app-notification></app-notification>
+      </div>
+
+      <ng-content select="[right-ng-content-right]"></ng-content>
+
+      <div class="item dis-flex">
+        <app-user-account-box></app-user-account-box>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #user>
+  <div class="user-man">
+    <ng-content select="[user-man-above-ng-content]"></ng-content>
+
+    <a class="item audit-log" [href]="'/' + Routing.AUDIT_LOG.path">
+      <div class="icon"></div>
+      <div class="text">{{'ROUTER.AUDIT_LOG' | translate}}</div>
+    </a>
+
+    <a class="item sign-in-history" [href]="'/' + Routing.SIGN_IN_HISTORY.path">
+      <div class="icon"></div>
+      <div class="text">{{'ROUTER.SIGN_IN_HISTORY' | translate}}</div>
+    </a>
+
+    <ng-content select="[user-man-under-ng-content]"></ng-content>
+  </div>
+</mat-menu>

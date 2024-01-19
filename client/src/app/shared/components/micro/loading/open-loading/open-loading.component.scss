@@ -1,0 +1,51 @@
+::ng-deep .open-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 4px 16px;
+  margin-bottom: 4px;
+  background-color: #fff;
+  overflow: hidden;
+  .circle {
+    position: relative;
+    width: 66px;
+    height: 66px;
+    margin-right: 12px;
+    .skeleton-loading {
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+  .line-wrapper {
+    width: calc(100% - 76px);
+    .line {
+      position: relative;
+      margin-bottom: 4px;
+      border-radius: 4px;
+      .skeleton-loading {
+        position: absolute;
+        border-radius: 4px;
+      }
+
+      &.first-line {
+        width: 100%;
+        height: 14px;
+        margin-bottom: 8px;
+      }
+      &.second-line {
+        width: 60%;
+        height: 10px;
+      }
+      &.third-line {
+        width: 80%;
+        height: 12px;
+      }
+      &.fourth-line {
+        width: 30%;
+        height: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+::ng-deep {
+    .export-menu {
+        position: relative;
+        padding: 0 16px;
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+        .content {
+            .mat-radio-group {
+                display: flex;
+                flex-wrap: wrap;
+                .mat-radio-button {
+                    flex-basis: 100%;
+                    margin-bottom: 16px;
+                }
+                .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+                    border-color: rgb(66, 134, 244);
+                }
+                .mat-radio-button.mat-accent .mat-radio-inner-circle {
+                    color: rgb(66, 134, 244);
+                    background-color: rgb(66, 134, 244);
+                }
+                .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+                    background-color: rgb(255, 37, 37, 0.26);
+                }
+            }
+            .info-export-type {
+                max-width: 500px;
+                min-height: 60px;
+                max-height: 160px;
+                overflow-wrap: auto;
+                overflow: hidden;
+                span {
+                    color: red;
+                }
+            }
+            .message {
+                max-width: 500px;
+                text-align: center;
+                overflow: hidden;
+                font-weight: bold;
+            }
+            .download {
+                display: flex;
+                justify-content: center;
+                padding: 4px 8px;
+                width: 100px;
+                margin: 16px auto 0;
+                border: 1px solid #ddd;
+                border-radius: 2px;
+                transition: all 0.3s;
+                cursor: pointer;
+                .icon {
+                    width: 24px;
+                    height: 24px;
+                    background-image: url(../../../../../assets/img/icons.svg);
+                    background-repeat: no-repeat;
+                    background-position: -1552px -406px;
+                    margin-right: 4x;
+                }
+                &:hover {
+                    background-color: #ddd;
+                }
+            }
+            .download-success {
+                display: flex;
+                justify-content: center;
+                margin: 16px;
+                .icon {
+                    width: 24px;
+                    height: 24px;
+                    background-image: url(../../../../../assets/img/icons.svg);
+                    background-repeat: no-repeat;
+                    background-position: -846px -310px;
+                    margin-right: 4x;
+                }
+                .text {
+                    color: green;
+                    font-weight: bold;
+                }
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .close-popup {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 24px;
+            height: 24px;
+            background-image: url(../../../../../assets/img/icons.svg);
+            background-repeat: no-repeat;
+            background-position: -1174px -360px;
+            cursor: pointer;
+        }
+    }
+}

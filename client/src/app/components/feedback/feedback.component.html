@@ -1,0 +1,75 @@
+<div class="feedback-page">
+  <div class="feedback-header">
+    <app-feedback-header></app-feedback-header>
+  </div>
+
+  <div class="feedback-box" *ngIf="!isLoading">
+    <cdk-virtual-scroll-viewport [itemSize]="110" class="virtual-scroll" #virtualScroll>
+      <div *cdkVirtualFor="let feedback of feedbacks" class="feedback">
+        <div class="left">
+          <div class="avatar-wrapper dis-flex">
+            <div class="avatar avatar-default bg-cover" *ngIf="!feedback.avatarUrl || feedback.avatarUrl == ''"></div>
+            <div class="avatar bg-cover" *ngIf="feedback.avatarUrl && feedback.avatarUrl != ''" [ngStyle]="{backgroundImage: 'url(' + feedback.avatarUrl + ')' }"></div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="email">
+            <span>{{feedback.email}} ({{feedback.fromIP}})</span>
+          </div>
+          <div class="content">
+            <span>{{feedback.content}}</span>
+          </div>
+          <div class="time">
+            {{feedback.timeFormat}}
+          </div>
+        </div>
+
+        <div class="has-reply" *ngIf="feedback.hasReply">
+          <div class="wrapper">
+            <div class="icon bg-contain"></div>
+            <div class="text" *ngIf="feedback.replyCount == 1">
+              <span class="number-of-reply">{{feedback.replyCount | NumberFormatPipe}}</span> {{'FEEDBACK.REPLY' |
+              translate}}
+            </div>
+            <div class="text" *ngIf="feedback.replyCount > 1">
+              <span class="number-of-reply">{{feedback.replyCount | NumberFormatPipe}}</span> {{'FEEDBACK.REPLIES' |
+              translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+
+    <div class="typing-effect" *ngIf="someoneTyping">
+      <div class="text">
+        {{'FEEDBACK.SOMEONE_TYPING' | translate}}
+      </div>
+      <div class="dots">
+        <app-typing></app-typing>
+      </div>
+    </div>
+
+    <div class="new-feedback" *ngIf="hasNewFeedback" (click)="viewLastFeedback()">
+      {{'FEEDBACK.NEW_FEEDBACK' | translate}}
+    </div>
+  </div>
+
+  <div class="chatbox">
+    <div class="wrapper">
+      <!-- <dx-text-area #chatInstance [(value)]="feedback.content" [width]="'100%'" [height]="'100%'"
+        [ngStyle]="{padding: '0 64px 0 0', borderRadius: '4px'}" ></dx-text-area> -->
+      <textarea #chatInstance [(ngModel)]="feedback.content" (keyup)="typing($event)"></textarea>
+      <div class="send" (click)="send()">
+        <div class="icon bg-contain"></div>
+      </div>
+      <progess-spinner-loading *ngIf="isSending"></progess-spinner-loading>
+    </div>
+  </div>
+
+  <div class="loading-wrapper" *ngIf="isLoading">
+    <div class="loading-block" *ngFor="let i of [].constructor(20); index as index"
+      [ngClass]="index % 2 ? 'odd' : 'even'">
+      <open-loading></open-loading>
+    </div>
+  </div>
+</div>

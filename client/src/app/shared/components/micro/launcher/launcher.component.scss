@@ -1,0 +1,121 @@
+.launcher-icon {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../../assets/img/common/menu.png);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+::ng-deep .apps {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    height: 0;
+    padding: 4px 8px;
+    margin-top: 8px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+    z-index: 999;
+    transition: all 0.3s;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    .progess-spinner-loading {
+        position: absolute !important;
+        height: 84px;
+    }
+
+    .app {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        min-width: min-content;
+        height: 100%;
+        padding: 8px 24px;
+        transition: all 0.3s;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+
+        .app-wrapper {
+            .icon {
+                position: relative;
+                width: 36px;
+                height: 36px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                margin: 0 auto;
+            }
+
+            .text {
+                flex-basis: 100%;
+                max-width: 100px;
+                margin-top: 8px;
+                font-size: 12px;
+                color: #1f1f1f;
+                text-align: center;
+                text-decoration: none;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .has-favourite,
+            .favourite {
+                position: absolute;
+                display: none;
+                top: -8px;
+                right: -20px;
+                width: 20px;
+                height: 20px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+
+                &.favourite {
+                    background-image: url(../../../../assets/img/common/star.png);
+                }
+
+                &.has-favourite {
+                    display: block;
+                    background-image: url(../../../../assets/img/common/star_2.png);
+                }
+            }
+        }
+
+        &.all {
+            .icon {
+                width: 36px;
+                height: 36px;
+                background-image: url(../../../../assets/img/common/laucher.png);
+            }
+        }
+    }
+
+    .home {
+        height: 100%;
+        padding: 8px;
+        margin-bottom: 1px;
+        .icon {
+            background-image: url(../../../../assets/img/common/home.png);
+        }
+    }
+}
+
+.apps.loadingz {
+    overflow: hidden;
+}
+
+
+@media screen and (min-width: 576px) {
+    .app:hover {
+        background-color: #ddd;
+
+        .favourite {
+            display: block;
+        }
+    }
+}

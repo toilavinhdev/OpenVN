@@ -1,0 +1,40 @@
+<div class="generate-history">
+  <div class="header">
+    <app-common-header>
+      <div class="upload" user-man-above-ng-content (click)="upload()">
+        <div class="icon bg-contain"></div>
+        <div class="text">Upload</div>
+      </div>
+    </app-common-header>
+  </div>
+
+  <div class="content">
+    <div class="generator-content">
+      <div class="wrapper">
+        <div class="title">
+          <div class="item ordinal">{{'GENERATOR.ORDINAL' | translate}}</div>
+          <div class="item date">{{'GENERATOR.DATE' | translate}}</div>
+          <div class="item time">{{'GENERATOR.TIME' | translate}}</div>
+          <div class="item file-name">{{'GENERATOR.FILE_NAME' | translate}}</div>
+          <div class="item status">{{'GENERATOR.STATUS' | translate}}</div>
+        </div>
+        <div class="gen-line" *ngFor="let gen of gens; index as i" (click)="presentChat(gen.id)">
+          <div class="item ordinal">{{(paginationRequest.pageIndex * paginationRequest.pageSize + i + 1)}}</div>
+          <div class="item date">{{gen.createdDate | DateVietnamPipe}}</div>
+          <div class="item time">{{gen.createdDate | TimePipe}}</div>
+          <div class="item file-name">{{gen.fileName}}</div>
+          <div class="item status">✔</div>
+        </div>
+      </div>
+
+      <div class="paginator">
+        <mat-paginator #matPaginator aria-label="Select page" [length]="total" [pageIndex]="paginationRequest.pageIndex"
+          [pageSize]="paginationRequest.pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true"
+          (page)="changePage($event)">
+        </mat-paginator>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+  </div>
+</div>

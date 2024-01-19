@@ -1,0 +1,97 @@
+<div id="signup" class="sign-up bg-cover">
+  <div class="form shadow">
+    <div class="form-header bg-contain"></div>
+
+    <div style="
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 24px;
+        color: #008dd2;
+      ">
+      {{'SIGN_UP.LABEL' | translate}}
+    </div>
+
+    <div class="form-content">
+
+      <div class="row-item tenant">
+        <mat-form-field appearance="fill" class="tenant">
+          <mat-label>{{'SIGN_UP.TENANT' | translate}}</mat-label>
+          <input matInput [value]="tenant.name" [disabled]="true"/>
+        </mat-form-field>
+      </div>
+
+      <div class="row-item mail">
+        <mat-form-field appearance="fill" class="email"
+          [ngClass]="!error.isValid && error.type == 'email' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.EMAIL' | translate}} <span style="color: red">*</span></mat-label>
+          <input #email matInput [(ngModel)]="account.email" (keyup.enter)="signUp($event)"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="username read-only"
+          [ngClass]="!error.isValid && error.type == 'username' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.USERNAME' | translate}} <span style="color: red">*</span></mat-label>
+          <input #username matInput [value]="displayUsername()" [readonly]="true" />
+        </mat-form-field>
+      </div>
+
+      <div class="row-item pass-word">
+        <mat-form-field appearance="fill" class="password"
+          [ngClass]="!error.isValid && error.type == 'password' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.PASSWORD' | translate}} <span style="color: red">*</span></mat-label>
+          <input *ngIf="!isShowPassword" #password type="password" matInput [(ngModel)]="account.password" (keyup.enter)="signUp($event)" />
+          <input *ngIf="isShowPassword" #password type="text" matInput [(ngModel)]="account.password" (keyup.enter)="signUp($event)" />
+          <div class="view-mode bg-contain" [ngClass]="isShowPassword ? 'visible' : '' " (click)="isShowPassword = !isShowPassword" ></div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="confirm-password"
+          [ngClass]="!error.isValid && error.type == 'confirmPassword' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.CONFIRM_PASSWORD' | translate}} <span style="color: red">*</span></mat-label>
+          <input *ngIf="!isShowPassword" #confirmPassword type="password" matInput [(ngModel)]="account.password" (keyup.enter)="signUp($event)" />
+          <input *ngIf="isShowPassword" #confirmPassword type="text" matInput [(ngModel)]="account.password" (keyup.enter)="signUp($event)" />
+          <div class="view-mode bg-contain" [ngClass]="isShowPassword ? 'visible' : '' " (click)="isShowPassword = !isShowPassword" ></div>
+        </mat-form-field>
+      </div>
+
+      <div class="row-item name">
+        <mat-form-field appearance="fill" class="first-name"
+          [ngClass]="!error.isValid && error.type == 'firstName' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.FIRST_NAME' | translate}} <span style="color: red">*</span></mat-label>
+          <input #firstName matInput [(ngModel)]="account.firstName" (keyup.enter)="signUp($event)" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="last-name"
+          [ngClass]="!error.isValid && error.type == 'lastName' ? 'error': ''">
+          <mat-label>{{'SIGN_UP.LAST_NAME' | translate}} <span style="color: red">*</span></mat-label>
+          <input #lastName matInput [(ngModel)]="account.lastName" (keyup.enter)="signUp($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="error-message">{{error.message}}</div>
+
+      <div class="row-item policy">
+        <dx-check-box [value]="true" [readOnly]="true"></dx-check-box>
+        <p class="policy-text">{{'SIGN_UP.POLICY' | translate }} <a class="policy-link-text" href="https://policy.kibana.vn" target="_blank" >{{'SIGN_UP.POLICY_LINK' | translate }}</a></p>
+      </div>
+
+      <div class="row-item signup-btn">
+        <base-button #signupBtn [text]="'SIGN_UP.SIGN_UP_BUTTON_TEXT' | translate" ngClass="full-width"
+          (onClick)="signUp($event)" [height]="48">
+        </base-button>
+      </div>
+
+      <div class="row-item has-account" style="margin-top: 16px; text-align: center">
+        <p>
+          {{'SIGN_UP.HAVE_AN_ACCOUNT' | translate}}
+          <a [routerLink]="['/' + Routing.SIGN_IN.path]" class="sigin-text">{{'SIGN_UP.SIGN_IN' | translate}}</a>
+        </p>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+  </div>
+
+  <div class="language">
+    <language></language>
+  </div>
+</div>

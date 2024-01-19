@@ -1,0 +1,351 @@
+.notebook-kanban {
+  position: relative;
+  height: 100%;
+
+  .categories {
+    display: flex;
+    height: calc(100vh - 116px);
+    // padding: 16px 0;
+
+    .sortable-cards {
+      min-height: calc(100vh - 236px);
+    }
+
+    &.dragging {
+      .category {
+        background-color: rgba(192, 192, 192, 0.2);
+      }
+    }
+
+    .category {
+      min-width: 260px;
+      max-width: 300px;
+      padding: 16px 16px 48px 16px;
+      // margin-top: 12px;
+      margin-right: 12px;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: rgba(192, 192, 192, 0.2);
+        .add-note {
+          display: block;
+        }
+      }
+
+      ::ng-deep .category-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 12px;
+        margin-bottom: 12px;
+        color: #616161;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        .text {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        &:hover {
+          .text {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+
+          .edit,
+          .remove {
+            visibility: visible;
+          }
+        }
+
+        .edit,
+        .remove,
+        .update,
+        .cancel {
+          margin-left: 12px;
+          background-repeat: no-repeat;
+          background-size: contain;
+          cursor: pointer;
+        }
+
+        .edit {
+          visibility: hidden;
+          width: 13px;
+          height: 13px;
+          background-image: url(../../../../assets/img/common/edit.png);
+        }
+
+        .remove {
+          visibility: hidden;
+          width: 13px;
+          height: 13px;
+          background-image: url(../../../../assets/img/common/delete.png);
+        }
+
+        .update {
+          width: 20px;
+          height: 20px;
+          margin-top: 4px;
+          background-image: url(../../../../assets/img/notebook/checkmark.png);
+        }
+
+        .cancel {
+          width: 20px;
+          height: 20px;
+          margin-top: 4px;
+          background-image: url(../../../../assets/img/common/cancel.png);
+        }
+
+        .mat-form-field-wrapper div.mat-form-field-flex {
+          background: none !important;
+        }
+
+        .mat-input-element {
+          letter-spacing: 1px !important;
+          text-transform: uppercase !important;
+        }
+      }
+
+      .note {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 200px;
+        max-width: 260px;
+        min-height: 80px;
+        max-height: 360px;
+        padding: 16px 24px;
+        margin: 0 0 12px 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        background-color: #fff;
+        overflow: hidden;
+        cursor: default;
+
+        .note-title {
+          height: 20px;
+          margin-bottom: 12px;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .note-function {
+          visibility: hidden;
+          display: flex;
+          height: 24px;
+          padding: 4px 0;
+
+          .item {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            transition: all 0.3s;
+
+            &.notification {
+              background-image: url(../../../../assets/img/notebook/bell.png);
+
+              &:hover {
+                background-image: url(../../../../assets/img/notebook/bell-hover.png);
+              }
+            }
+
+            &.edit {
+              background-image: url(../../../../assets/img/notebook/edit.png);
+
+              &:hover {
+                background-image: url(../../../../assets/img/notebook/edit-hover.png);
+              }
+            }
+
+            &.background-color {
+              background-image: url(../../../../assets/img/notebook/color.png);
+
+              &:hover {
+                background-image: url(../../../../assets/img/notebook/color-hover.png);
+              }
+            }
+
+            &.remove {
+              background-image: url(../../../../assets/img/notebook/trash.png);
+
+              &:hover {
+                background-image: url(../../../../assets/img/notebook/trash-hover.png);
+              }
+            }
+
+            &.view-mode {
+              background-image: url(../../../../assets/img/notebook/view.png);
+
+              &:hover {
+                background-image: url(../../../../assets/img/notebook/view-hover.png);
+              }
+            }
+          }
+        }
+
+        .pin-icon {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          display: none;
+          width: 16px;
+          height: 16px;
+          background-image: url(../../../../assets/img/notebook/pin-white.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        &.dx-sortable-source {
+          .note-title,
+          .note-function,
+          .pin-icon {
+            display: none !important;
+            // overflow: hidden !important;
+          }
+        }
+
+        &:hover {
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px;
+
+          .pin-icon {
+            display: block;
+          }
+
+          .note-function {
+            visibility: visible;
+          }
+        }
+      }
+
+      .note.pinned {
+        .pin-icon {
+          display: block !important;
+          background-image: url(../../../../assets/img/notebook/pin.png);
+        }
+      }
+
+      .add-note {
+        display: none;
+        width: 24px;
+        height: 24px;
+        margin: 0 auto;
+        background-image: url(../../../../assets/img/notebook/add-note.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        cursor: pointer;
+      }
+    }
+
+    ::ng-deep .add-category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 240px;
+      height: 40px;
+      padding: 8px 16px;
+      margin-top: 8px;
+      span:hover,
+      .add-icon:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      span {
+        padding-left: 8px;
+        color: #616161;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .add-icon {
+        width: 20px;
+        height: 20px;
+        background-image: url(../../../../assets/img/plus.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .mat-form-field-wrapper div.mat-form-field-flex {
+        background: none !important;
+      }
+
+      .mat-input-element {
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+      }
+    }
+  }
+
+
+  ::ng-deep .loading-wrapper {
+    height: 100%;
+    .loading-block {
+      position: relative;
+      display: inline-block;
+      width: 280px;
+      height: 80px;
+      margin: 12px;
+
+      &.even {
+        .open-loading {
+          animation: dim 2s linear infinite;
+          animation-delay: 0.3s;
+        }
+      }
+      &.odd {
+        .open-loading {
+          animation: dim 1.5s linear infinite;
+        }
+      }
+
+      .open-loading {
+        position: absolute;
+      }
+    }
+  }
+
+  ::ng-deep .dx-sortable {
+    display: block;
+  }
+}
+
+::ng-deep {
+  .color-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .color {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      margin: 0 2px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+
+      &.selected {
+        .checkmark {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../../../assets/img/notebook/checkmark.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  ::ng-deep .loading-block.odd {
+    width: 100% !important;
+  }
+}

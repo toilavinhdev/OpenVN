@@ -1,0 +1,9 @@
+::ng-deep .cpanel-user {
+  position: relative;
+  height: 100%;
+  padding: 16px;
+
+  .progess-spinner-loading {
+    position: absolute !important;
+  }
+}

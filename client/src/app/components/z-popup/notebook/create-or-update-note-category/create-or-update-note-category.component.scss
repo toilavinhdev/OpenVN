@@ -1,0 +1,53 @@
+.create-or-update-note-category {
+    position: relative;
+    padding: 24px;
+    .wrapper {
+      position: relative;
+      .name {
+        margin-top: 4px;
+      }
+      .functions {
+        display: flex;
+        justify-content: flex-end;
+
+        .save,
+        .cancel {
+          width: 24px;
+          height: 24px;
+          background-size: contain;
+          cursor: pointer;
+        }
+        .save {
+          background-image: url(../../../../../assets/img/notebook/note-add.png);
+        }
+        .cancel {
+          background-image: url(../../../../../assets/img/common/cancel.png);
+          margin-right: 24px;
+        }
+      }
+
+      ::ng-deep {
+        .progess-spinner-loading {
+          position: absolute;
+        }
+
+        .mat-form-field {
+          width: 100% !important;
+        }
+
+        .mat-form-field-wrapper div.mat-form-field-flex {
+          background: none !important;
+        }
+
+        .mat-form-field-appearance-fill .mat-form-field-underline::before {
+          background: none !important;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .fucking-category-create {
+    .mat-dialog-container {
+      padding: 0px !important;
+    }
+  }

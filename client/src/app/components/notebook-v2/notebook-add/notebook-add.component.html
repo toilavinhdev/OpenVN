@@ -1,0 +1,12 @@
+<div class="notebook-add" (click)="openPopup(null)">
+  <p class="text" *ngIf="!isExpand">
+    {{'NOTEBOOK.TAKE_A_NOTE' | translate}}
+  </p>
+
+  <div class="wrapper" *ngIf="isExpand">
+    <div class="title"></div>
+    <div class="content"></div>
+    <div class="functions"></div>
+  </div>
+
+</div>

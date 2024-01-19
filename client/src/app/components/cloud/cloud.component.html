@@ -1,0 +1,498 @@
+<div class="directory unselectable">
+  <div class="directory-header">
+    <app-common-header>
+      <div class="right-content" right-ng-content-right>
+        <div class="capacity">
+          <div class="circle" id="capacity-circle">
+            {{capacityConfiguration.usedPercentage}}
+          </div>
+          <skeleton-loading *ngIf="isLoadingCapacity"></skeleton-loading>
+        </div>
+      </div>
+    </app-common-header>
+  </div>
+
+  <div *ngIf="SharedService.DeviceType == DeviceType.Mobile" class="directory-content"
+    (contextmenu)="onOutsideRightClick($event)" (dblclick)="dblClickOutside($event)" (click)="outsideClick($event)"
+    (mousedown)="outsideMousedown($event)" (mouseup)="mouseup($event)">
+    <div class="dir-path">
+      <a class="path" [href]="Routing.DIRECTORY.path + '/0'">C:</a>
+      <a class="path" [href]="Routing.DIRECTORY.path + '/' + m.id" *ngFor="let m of path.mapping">{{m.name}}</a>
+      <a class="path here" [href]="Routing.DIRECTORY.path + '/' + directory.id"
+        *ngIf="directory.id != '0'">{{directory.name}}</a>
+    </div>
+
+    <div class="list-directory" *ngIf="!isLoadingDir">
+      <ng-container *ngFor="let dir of directories; index as index">
+        <div *ngIf="index < directorySize" class="dir" draggable="true" [id]="lastDirId == dir.id ? 'last-visited' : ''"
+          [ngClass]="[dir.childrenCount == 0 ? 'empty' : '', dir.selected ? 'selected' : '', dir.isLocked ? 'locked': '', dir.hasUnlocked ? 'pass-security' : '', dir.underCopyOrCut ? 'moving' : '']"
+          (contextmenu)="onDirRightClick($event, dir)" (dblclick)="onDirDblClick($event, dir)"
+          (click)="onDirClick($event, dir)" (dragover)="$event.preventDefault()" (drag)="drag($event, dir, 'dir')"
+          (drop)="drop($event, dir)" (mousedown)="dirMousedown($event, dir)" (mouseup)="mouseup($event)">
+          <div class="icon"></div>
+          <div class="text unselectable" *ngIf="!dir.isEditing">
+            {{dir.name}}
+          </div>
+
+          <input #renameDirInput *ngIf="dir.isEditing" class="rename-dir-input" [(ngModel)]="dir.name"
+            [spellcheck]="false" placeholder="{{'CLOUD.DIRECTORY.ENTER_DIR_NAME' | translate}}" (blur)="editDir(dir)"
+            (keyup)="onRenameDirKeyup($event, dir)" />
+
+          <div class="locked-icon"></div>
+
+          <progess-spinner-loading *ngIf="dir.isUpdating"></progess-spinner-loading>
+        </div>
+      </ng-container>
+
+      <div class="dir new-dir" *ngIf="isAdding">
+        <div class="icon"></div>
+        <input #newDirInput class="new-dir-input" [(ngModel)]="entity.name" [spellcheck]="false"
+          placeholder="{{'CLOUD.DIRECTORY.ENTER_DIR_NAME' | translate}}" (blur)="onBlur()" (keyup)="onKeyup($event)" />
+      </div>
+
+      <div class="show-more" *ngIf="directorySize < directories.length">
+        <base-button text="{{'COMMON.SHOW_MORE' | translate}}" [width]="160" [buttonType]="ButtonType.STROKED"
+          [finishImmediately]="true" (onClick)="directorySize = directorySize + perDirectorySize">
+        </base-button>
+      </div>
+    </div>
+
+    <div class="list-cf" *ngIf="!isLoadingCF">
+      <ng-container *ngFor="let cf of cloudFiles; index as index">
+        <div *ngIf="index < fileSize" class="cf" draggable="true" [matTooltip]="cf.originalFileName"
+          [ngClass]="[cf.fileType == FileType.Picture ? 'picture' : cf.fileType == FileType.Video ? 'video' : 'other', cf.selected ? 'selected' : '', cf.underCopyOrCut ? 'moving' : ''] "
+          (dblclick)="onCfDblClick($event, cf)" (click)="onCfClick($event, cf)"
+          (contextmenu)="onCfRightClick($event, cf)" (dragover)="$event.preventDefault()"
+          (drag)="drag($event, cf, 'cf')" (mousedown)="fileMousedown($event, cf)" (mouseup)="mouseup($event)">
+
+          <div class="item-wrapper" *ngIf="cf.fileType == FileType.Other">
+            <div class="icon" [ngClass]="Utility.mapExtensionToClassName(cf.fileExtension)"></div>
+            <div class="text unselectable">{{cf.originalFileName}}</div>
+          </div>
+
+          <div *ngIf="cf.fileType == FileType.Picture" [ngStyle]="{'backgroundImage': 'url(' + cf.url + ')'}"
+            class="player" loading="eager">
+          </div>
+
+          <ng-container *ngIf="cf.fileType == FileType.Video">
+            <video id="plyrID" class="player" controls="controls" preload="metadata" loop>
+              <source [src]="cf.url + '#t=0.1'" type="video/mp4">
+            </video>
+          </ng-container>
+
+          <progess-spinner-loading *ngIf="cf.isDeleting"></progess-spinner-loading>
+        </div>
+      </ng-container>
+
+      <div class="show-more" *ngIf="fileSize < cloudFiles.length">
+        <base-button text="{{'COMMON.SHOW_MORE' | translate}}" [width]="160" [buttonType]="ButtonType.STROKED"
+          [finishImmediately]="true" (onClick)="fileSize = fileSize + perFileSize">
+        </base-button>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+
+    <div class="dir-loading" *ngIf="isLoadingDir">
+      <div class="loading-block dir-loading-block" *ngFor="let block of [].constructor(4); index as index"
+        [ngClass]="index % 2 ? 'odd' : 'even'">
+        <open-loading></open-loading>
+      </div>
+    </div>
+
+    <div class="cf-loading" *ngIf="isLoadingCF">
+      <div class="loading-block file-loading-block" *ngFor="let block of [].constructor(4); index as index"
+        [ngClass]="index % 2 ? 'odd' : 'even'">
+        <open-loading></open-loading>
+      </div>
+    </div>
+
+    <div class="no-data" *ngIf="!isLoadingDir && !isLoadingCF && !directories.length && !cloudFiles.length">
+      <div class="wrapper">
+        <div class="icon bg-contain"></div>
+        <div class="text">{{'CLOUD.DIRECTORY.NO_DATA_TOOLTIP' | translate}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="SharedService.DeviceType == DeviceType.Desktop" class="directory-content"
+    (contextmenu)="onOutsideRightClick($event)" (dblclick)="dblClickOutside($event)" (click)="outsideClick($event)">
+    <div class="dir-path">
+      <a class="path" [href]="Routing.DIRECTORY.path + '/0'">C:</a>
+      <a class="path" [href]="Routing.DIRECTORY.path + '/' + m.id" *ngFor="let m of path.mapping">{{m.name}}</a>
+      <a class="path here" [href]="Routing.DIRECTORY.path + '/' + directory.id"
+        *ngIf="directory.id != '0'">{{directory.name}}</a>
+    </div>
+
+    <!-- directories  -->
+    <div class="list-directory" *ngIf="!isLoadingDir">
+      <ng-container *ngFor="let dir of directories; index as index">
+        <div *ngIf="index < directorySize" class="dir" draggable="true" [id]="lastDirId == dir.id ? 'last-visited' : ''"
+          [ngClass]="[dir.childrenCount == 0 ? 'empty' : '', dir.selected ? 'selected' : '', dir.isLocked ? 'locked': '', dir.hasUnlocked ? 'pass-security' : '', dir.underCopyOrCut ? 'moving' : '']"
+          (contextmenu)="onDirRightClick($event, dir)" (dblclick)="onDirDblClick($event, dir)"
+          (click)="onDirClick($event, dir)" (dragover)="$event.preventDefault()" (drag)="drag($event, dir, 'dir')"
+          (drop)="drop($event, dir)">
+          <div class="icon"></div>
+          <div class="text unselectable" *ngIf="!dir.isEditing">
+            {{dir.name}}
+          </div>
+
+          <input #renameDirInput *ngIf="dir.isEditing" class="rename-dir-input" [(ngModel)]="dir.name"
+            [spellcheck]="false" placeholder="{{'CLOUD.DIRECTORY.ENTER_DIR_NAME' | translate}}" (blur)="editDir(dir)"
+            (keyup)="onRenameDirKeyup($event, dir)" />
+
+          <div class="locked-icon"></div>
+
+          <progess-spinner-loading *ngIf="dir.isUpdating"></progess-spinner-loading>
+        </div>
+      </ng-container>
+
+      <div class="dir new-dir" *ngIf="isAdding">
+        <div class="icon"></div>
+        <input #newDirInput class="new-dir-input" [(ngModel)]="entity.name" [spellcheck]="false"
+          placeholder="{{'CLOUD.DIRECTORY.ENTER_DIR_NAME' | translate}}" (blur)="onBlur()" (keyup)="onKeyup($event)" />
+      </div>
+
+      <div class="show-more" *ngIf="directorySize < directories.length">
+        <base-button text="{{'COMMON.SHOW_MORE' | translate}}" [width]="160" [buttonType]="ButtonType.STROKED"
+          [finishImmediately]="true" (onClick)="directorySize = directorySize + perDirectorySize">
+        </base-button>
+      </div>
+    </div>
+
+    <!-- files  -->
+    <div class="list-cf" *ngIf="!isLoadingCF">
+      <ng-container *ngFor="let cf of cloudFiles; index as index">
+        <div *ngIf="index < fileSize" class="cf" draggable="true" [matTooltip]="cf.originalFileName"
+          [ngClass]="[cf.fileType == FileType.Picture ? 'picture' : cf.fileType == FileType.Video ? 'video' : 'other', cf.selected ? 'selected' : '', cf.underCopyOrCut ? 'moving' : ''] "
+          (dblclick)="onCfDblClick($event, cf)" (click)="onCfClick($event, cf)"
+          (contextmenu)="onCfRightClick($event, cf)" (dragover)="$event.preventDefault()"
+          (drag)="drag($event, cf, 'cf')">
+
+          <div class="item-wrapper" *ngIf="cf.fileType == FileType.Other">
+            <div class="icon" [ngClass]="Utility.mapExtensionToClassName(cf.fileExtension)"></div>
+            <div class="text unselectable">{{cf.originalFileName}}</div>
+          </div>
+
+          <div *ngIf="cf.fileType == FileType.Picture" [ngStyle]="{'backgroundImage': 'url(' + cf.url + ')'}"
+            class="player" loading="eager">
+          </div>
+
+          <ng-container *ngIf="cf.fileType == FileType.Video">
+            <video id="plyrID" class="player" controls="controls" preload="metadata" loop>
+              <source [src]="cf.url + '#t=0.1'" type="video/mp4">
+            </video>
+          </ng-container>
+
+          <progess-spinner-loading *ngIf="cf.isDeleting"></progess-spinner-loading>
+        </div>
+      </ng-container>
+
+      <div class="show-more" *ngIf="fileSize < cloudFiles.length">
+        <base-button text="{{'COMMON.SHOW_MORE' | translate}}" [width]="160" [buttonType]="ButtonType.STROKED"
+          [finishImmediately]="true" (onClick)="fileSize = fileSize + perFileSize">
+        </base-button>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+
+    <div class="dir-loading" *ngIf="isLoadingDir">
+      <div class="loading-block dir-loading-block"
+        *ngFor="let block of [].constructor(loadingBlockCount - 2 > 1 ? loadingBlockCount - 2 : 1); index as index"
+        [ngClass]="index % 2 ? 'odd' : 'even'">
+        <open-loading></open-loading>
+      </div>
+    </div>
+
+    <div class="cf-loading" *ngIf="isLoadingCF">
+      <div class="loading-block file-loading-block"
+        *ngFor="let block of [].constructor(loadingBlockCount); index as index" [ngClass]="index % 2 ? 'odd' : 'even'">
+        <open-loading></open-loading>
+      </div>
+    </div>
+
+    <div class="no-data" *ngIf="!isLoadingDir && !isLoadingCF && !directories.length && !cloudFiles.length">
+      <div class="wrapper">
+        <div class="icon bg-contain"></div>
+        <div class="text">{{'CLOUD.DIRECTORY.NO_DATA_TOOLTIP' | translate}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="visibility: hidden; position: fixed;" [style.left]="menuTopLeftPosition.x"
+  [style.top]="menuTopLeftPosition.y" [matMenuTriggerFor]="rightDirMenu">
+</div>
+
+<mat-menu #rightDirMenu="matMenu" class="dir-context">
+  <ng-template matMenuContent let-item="item">
+    <!-- new dir  -->
+    <div class="dir-context-item new" *ngIf="!contextState.onItem() && !contextState.hasSelected()" (click)="new()">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.NEW' | translate }}</div>
+    </div>
+
+    <!-- open dir -->
+    <div class="dir-context-item open" *ngIf="contextState.onDir && !contextState.hasSelected()"
+      (click)="onDirDblClick($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.OPEN' | translate }}</div>
+    </div>
+
+    <!-- open cf -->
+    <div class="dir-context-item open" *ngIf="contextState.onCf && !contextState.hasSelected()"
+      (click)="openCf(item.url)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.OPEN' | translate }}</div>
+    </div>
+
+    <!-- open dir in new tab -->
+    <div class="dir-context-item open-new-tab" *ngIf="contextState.onDir && !contextState.hasSelected()"
+      (click)="openInNewTab($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.OPEN_NEW_TAB' | translate }}</div>
+    </div>
+
+    <!-- refresh  -->
+    <div class="dir-context-item refresh" *ngIf="!contextState.onItem()" (click)="refresh()">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.REFRESH' | translate }}</div>
+    </div>
+
+    <!-- new  -->
+    <div class="dir-context-item new" *ngIf="contextState.onDir && !contextState.hasSelected()" (click)="new()">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.NEW' | translate }}</div>
+    </div>
+
+    <!-- rename  -->
+    <div class="dir-context-item rename" *ngIf="contextState.onDir && !contextState.hasSelected()"
+      (click)="rename(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.RENAME' | translate }}</div>
+    </div>
+
+    <!-- copy dir -->
+    <!-- <div class="dir-context-item copy" *ngIf="contextState.onDir && !contextState.hasSelected()" (click)="copyDir(item)">
+          <div class="icon"></div>
+          <div class="text">{{ 'CLOUD.DIRECTORY.COPY' | translate }}</div>
+      </div> -->
+
+    <!-- copy cf -->
+    <!-- <div class="dir-context-item copy" *ngIf="contextState.onCf && !contextState.hasSelected()" (click)="copyCf(item)">
+          <div class="icon"></div>
+          <div class="text">{{ 'CLOUD.DIRECTORY.COPY' | translate }}</div>
+      </div> -->
+
+    <!-- copy -->
+    <!-- <div class="dir-context-item copy" *ngIf="contextState.hasSelected()" (click)="copy()">
+          <div class="icon"></div>
+          <div class="text">{{ 'CLOUD.DIRECTORY.COPY' | translate }}</div>
+      </div> -->
+
+    <!-- cut dir -->
+    <div class="dir-context-item cut" *ngIf="contextState.onDir && !contextState.hasSelected()" (click)="cutDir(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.CUT' | translate }}</div>
+    </div>
+
+    <!-- cut cf -->
+    <div class="dir-context-item cut" *ngIf="contextState.onCf && !contextState.hasSelected()" (click)="cutCf(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.CUT' | translate }}</div>
+    </div>
+
+    <!-- cut -->
+    <div class="dir-context-item cut" *ngIf="contextState.hasSelected()" (click)="cut()">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.CUT' | translate }}</div>
+    </div>
+
+    <!-- paste to dir -->
+    <div class="dir-context-item paste"
+      *ngIf="isShowPaste && contextState.onDir && !contextState.hasSelected() && !isLockedDir(item)"
+      (click)="pasteToDir(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.PASTE' | translate }}</div>
+    </div>
+
+    <!-- paste -->
+    <div class="dir-context-item paste" *ngIf="isShowPaste && !contextState.onItem()" (click)="paste()">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.PASTE' | translate }}</div>
+    </div>
+
+    <!-- set password dir -->
+    <div class="dir-context-item set-password"
+      *ngIf="contextState.onDir && !item.isLocked && !item.hasPassword && !contextState.hasSelected()"
+      (click)="setPassword($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.SET_PASSWORD' | translate }}</div>
+    </div>
+
+    <!-- lock dir -->
+    <div class="dir-context-item lock"
+      *ngIf="contextState.onDir && !item.isLocked && item.hasPassword && !contextState.hasSelected()"
+      (click)="lock($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.LOCK' | translate }}</div>
+    </div>
+
+    <!-- unlock dir -->
+    <div class="dir-context-item unlock" *ngIf="contextState.onDir && item.isLocked && !contextState.hasSelected()"
+      (click)="unlock($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.UNLOCK' | translate }}</div>
+    </div>
+
+    <!-- change password dir -->
+    <div class="dir-context-item change-password"
+      *ngIf="contextState.onDir && item.hasPassword && !contextState.hasSelected()"
+      (click)="changePassword($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.CHANGE_PASSWORD' | translate }}</div>
+    </div>
+
+    <!-- copy path cf -->
+    <div class="dir-context-item copy-path" *ngIf="contextState.onCf && !contextState.hasSelected()"
+      (click)="copyPath(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.COPY_PATH' | translate }}</div>
+    </div>
+
+
+    <!-- upload on dir -->
+    <div class="dir-context-item upload" *ngIf="contextState.onDir && !contextState.hasSelected()"
+      (click)="upload(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.UPLOAD' | translate }}</div>
+    </div>
+
+    <!-- upload -->
+    <div class="dir-context-item upload" *ngIf="!contextState.onItem() && !contextState.hasSelected()"
+      (click)="upload(null)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.DIRECTORY.UPLOAD' | translate }}</div>
+    </div>
+
+    <!-- delete dir -->
+    <div class="dir-context-item delete" *ngIf="contextState.onDir && !contextState.hasSelected()"
+      (click)="confirmDirDelete(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'COMMON.DELETE' | translate }}</div>
+    </div>
+
+    <!-- delete cf -->
+    <div class="dir-context-item delete" *ngIf="contextState.onCf && !contextState.hasSelected()"
+      (click)="confirmCfDelete(item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'COMMON.DELETE' | translate }}</div>
+    </div>
+
+    <!-- delete couple -->
+    <div class="dir-context-item delete" *ngIf="contextState.hasSelected()" (click)="confirmCoupleDelete()">
+      <div class="icon"></div>
+      <div class="text">{{ 'COMMON.DELETE' | translate }}</div>
+    </div>
+
+    <!-- cf properties -->
+    <div class="dir-context-item properties" [matMenuTriggerFor]="propertiesMenu" *ngIf="contextState.onCf"
+      (click)="getFileProperties($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.PROPERTIES' | translate }}</div>
+    </div>
+
+    <!-- dir properties -->
+    <div class="dir-context-item properties" [matMenuTriggerFor]="propertiesMenu" *ngIf="contextState.onDir"
+      (click)="getDirProperties($event, item)">
+      <div class="icon"></div>
+      <div class="text">{{ 'CLOUD.PROPERTIES' | translate }}</div>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<dx-popover target="#capacity-circle" showEvent="mouseenter" hideEvent="mouseleave" [minWidth]="240">
+  <div *dxTemplate="let data = model; of: 'content'" class="capacity-information">
+    <div class="item">
+      <span class="title">{{'CLOUD.USED_CAPACITY_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{capacityConfiguration.usedCapacityText}}</span>
+        <span class="percentage">({{capacityConfiguration.usedPercentage}}%)</span>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.AVAILABLE_CAPACITY_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{capacityConfiguration.availableCapacityText}}</span>
+        <span class="percentage">({{capacityConfiguration.availablePercentage}}%)</span>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.MAX_CAPACITY_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{capacityConfiguration.maxCapacityText}}</span>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.TOTAL_DIR_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{countInformation.directory | NumberFormatPipe}}</span>
+      </span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.TOTAL_FILE_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{countInformation.file | NumberFormatPipe}}</span>
+      </span>
+    </div>
+  </div>
+</dx-popover>
+
+<mat-menu #propertiesMenu="matMenu" yPosition="above" xPosition="after" class="properties-context">
+  <div class="wrapper" *ngIf="!isLoadingProperties">
+
+    <div class="item">
+      <span class="title">{{'CLOUD.NAME_TEXT' | translate}}: </span>
+      <span class="value">{{properties.name}}</span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.TYPE_TEXT' | translate}}: </span>
+      <span class="value">{{properties.type}}</span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.SIZE_TEXT' | translate}}: </span>
+      <span class="value">
+        <span class="plain-text">{{Utility.displaySize(properties.size)}}</span>
+        <span class="percentage">({{((properties.size / capacityConfiguration.maxCapacity) * 100).toFixed(2)}}%)</span>
+      </span>
+    </div>
+
+    <div class="item" *ngIf="contextState.onDir">
+      <span class="title">{{'CLOUD.CHILDREN_COUNT' | translate}}: </span>
+      <span class="value">{{properties.childrenCount}}</span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.CREATED_DATE' | translate}}: </span>
+      <span class="value">{{properties.createdDate | DateTimeVietnamPipe}}</span>
+    </div>
+
+    <div class="item">
+      <span class="title">{{'CLOUD.LAST_MODIFIED_DATE' | translate}}: </span>
+      <span class="value">{{properties.lastModifiedDate | DateTimeVietnamPipe}}</span>
+    </div>
+  </div>
+
+  <progess-spinner-loading *ngIf="isLoadingProperties"></progess-spinner-loading>
+</mat-menu>
+
+
+<!-- <a download id="download" hidden></a> -->

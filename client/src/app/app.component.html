@@ -1,0 +1,16 @@
+<div id="app" #app [ngClass]="SharedService.DeviceType == DeviceType.Desktop ? 'desktop' : 'mobile'">
+    <mat-progress-bar mode="determinate" [value]="progressValue" *ngIf="inProgress"></mat-progress-bar>
+    <div #appContent class="app-content" (click)="appClick($event)">
+        <router-outlet></router-outlet>
+        <app-resolver-mark *ngIf="isResolving"></app-resolver-mark>
+        <!-- <progess-spinner-loading ></progess-spinner-loading> -->
+    </div>
+
+    <h1 style="visibility: hidden;">Học lập trình | Tự học lập trình | Lập trình cơ bản | Lập Trình JavaScript Cơ Bản |
+        Học fullstack | F8 fullstack | Học frontend | Học backend | SEO | HTML | CSS | HTML CSS</h1>
+</div>
+
+<snackbar></snackbar>
+<message-box></message-box>
+
+<div id="calculator"></div>

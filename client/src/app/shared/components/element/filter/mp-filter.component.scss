@@ -1,0 +1,48 @@
+.mp-filter {
+    height: 100%;
+    .header2 {
+        margin-bottom: 32px;
+        h3 {
+            text-align: center;
+        }
+    }
+    .body {
+        height: 100%;
+        .condition {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+
+            .alias {
+              font-weight: 600;
+            }
+        }
+        .btn-add-condition {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 24px;
+        }
+    }
+}
+
+::ng-deep {
+    .dx-fileuploader-wrapper {
+        padding: 0 !important;
+    }
+    .dx-texteditor-label {
+        font-weight: 500;
+    }
+    .required {
+        .dx-texteditor-label {
+            .dx-label {
+                span::after {
+                    content: "*";
+                    color: red;
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+}

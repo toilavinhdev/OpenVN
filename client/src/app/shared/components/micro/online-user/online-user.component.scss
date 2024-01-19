@@ -1,0 +1,30 @@
+.online-users {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+
+    .circle {
+        width: 8px;
+        height: 8px;
+        margin-right: 8px;
+        margin-top: 1px;
+        border-radius: 50%;
+        background-color: #20c997;
+
+        span.blink {
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: #0fcc45;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: online-blink 1s linear infinite;
+        }
+    }
+
+    .value {
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: #616161;
+    }
+}

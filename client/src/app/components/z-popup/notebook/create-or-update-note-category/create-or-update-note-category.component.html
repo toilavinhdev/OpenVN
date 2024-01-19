@@ -1,0 +1,20 @@
+<div class="create-or-update-note-category" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+    <div class="wrapper">
+      <div class="name">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'NOTEBOOK.CATEGORY_NAME' | translate}}</mat-label>
+          <input #name matInput [(ngModel)]="category.name" (keyup)="onKeyup($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="functions">
+        <!-- <div class="cancel" matTooltip="{{'COMMON.CANCEL' | translate}}" (click)="cancel()"></div> -->
+
+        <base-button #saveBtn text="{{'COMMON.SAVE' | translate}}" [width]="80" [height]="32" (onClick)="save()"
+          [actionExponents]="[ActionExponent.Add]"></base-button>
+      </div>
+
+      <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+    </div>
+
+  </div>

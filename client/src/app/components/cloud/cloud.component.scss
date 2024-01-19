@@ -1,0 +1,478 @@
+::ng-deep .directory {
+    height: 100%;
+    .directory-header {
+        height: 60px;
+        .common-header {
+            .right-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 36px;
+                margin-left: 8px;
+                .capacity {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 36px;
+                    height: 100%;
+                    transition: all 0.3s;
+                    overflow: hidden;
+                    .circle {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 36px;
+                        height: 36px;
+                        padding: 4px;
+                        border: 2px solid #eb7d4b;
+                        border-radius: 50%;
+                        font-size: 11px;
+                        cursor: context-menu;
+                    }
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                    .skeleton-loading {
+                        inset: -1px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+    .directory-content {
+        position: relative;
+        height: calc(100% - 60px);
+        padding: 16px;
+        border-top: 1px solid #ebebeb;
+        overflow: auto;
+        .dir-path {
+            a {
+                margin-right: 4px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                &.here {
+                    text-decoration: underline;
+                }
+                &:not(.here)::after {
+                    content: "";
+                    display: inline-block;
+                    width: 12px;
+                    height: 10px;
+                    margin-left: 4px;
+                    background-image: url(../../../assets/img/common/arrow-down.png);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+        .list-directory,
+        .list-cf {
+            // height: 100%;
+            .dir,
+            .cf {
+                position: relative;
+                display: inline-block;
+                width: 148px;
+                height: 84px;
+                padding: 16px;
+                margin: 8px;
+                border-radius: 4px;
+                transition: all 0.3s;
+                overflow: hidden;
+                cursor: pointer;
+                .icon {
+                    width: 32px;
+                    height: 32px;
+                    margin: 4px auto;
+                    background-image: url(../../../assets/img/directory/directory-has-data.png);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+                &.empty {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/empty-directory.png);
+                    }
+                }
+                .text {
+                    letter-spacing: 1px;
+                    color: #616161;
+                    text-align: center;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                .new-dir-input,
+                .rename-dir-input {
+                    width: 100%;
+                    height: 20px;
+                    padding: 4px 8px;
+                    margin: 0 4px;
+                    border: none;
+                    outline: none;
+                    border-bottom: 1px solid #ddd;
+                }
+                &:hover {
+                    background-color: #ebebeb;
+                    // .icon {
+                    //   background-image: url(../../../assets/img/directory/directory-has-data-hover.png);
+                    // }
+                }
+                &.selected {
+                    background-color: #ddd;
+                }
+                &.locked {
+                    position: relative;
+                    .locked-icon {
+                        position: absolute;
+                        top: 32px;
+                        left: calc(50% - 9px);
+                        width: 16px;
+                        height: 16px;
+                        background-image: url(../../../assets/img/directory/lock.png);
+                        background-size: contain;
+                    }
+                }
+                &.pass-security {
+                    .locked-icon {
+                        background-image: url(../../../assets/img/directory/has-unlocked.png);
+                    }
+                }
+                &.moving {
+                    opacity: 0.65;
+                }
+                &#last-visited {
+                    animation: 1s blink linear 3;
+                }
+            }
+            .cf {
+                width: 148px;
+                height: 148px;
+                .item-wrapper {
+                    margin-top: 24px;
+                }
+                .icon {
+                    width: 44px;
+                    height: 44px;
+                    margin-bottom: 8px;
+                    &.html {
+                        background-image: url(../../../assets/img/directory/file-html.png);
+                    }
+                    &.xlsx {
+                        background-image: url(../../../assets/img/directory/file-xlsx.png);
+                    }
+                    &.json {
+                        background-image: url(../../../assets/img/directory/file-json.png);
+                    }
+                    &.css {
+                        background-image: url(../../../assets/img/directory/file-css.png);
+                    }
+                    &.doc {
+                        background-image: url(../../../assets/img/directory/file-doc.png);
+                    }
+                    &.pdf {
+                        background-image: url(../../../assets/img/directory/file-pdf.png);
+                    }
+                    &.txt {
+                        background-image: url(../../../assets/img/directory/file-txt.png);
+                    }
+                    &.log {
+                        background-image: url(../../../assets/img/directory/file-log.png);
+                    }
+                    &.rar {
+                        background-image: url(../../../assets/img/directory/file-rar.png);
+                    }
+                    &.exe {
+                        background-image: url(../../../assets/img/directory/file-exe.png);
+                    }
+                    &.sql {
+                        background-image: url(../../../assets/img/directory/file-sql.png);
+                    }
+                    &.other {
+                        background-image: url(../../../assets/img/directory/file-other.png);
+                    }
+                }
+            }
+            .picture,
+            .video {
+                padding: 12px;
+                img,
+                video,
+                .player {
+                    width: 100%;
+                    height: 100%;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                }
+            }
+        }
+        .progess-spinner-loading {
+            position: absolute !important;
+        }
+        .dir-loading,
+        .cf-loading {
+            margin: 24px 0;
+        }
+        .loading-block {
+            position: relative;
+            display: inline-block;
+            width: 280px;
+            height: 80px;
+            margin: 8px;
+            border-radius: 8px;
+
+            &.even {
+              .open-loading {
+                animation: dim 2s linear infinite;
+                animation-delay: 0.3s;
+              }
+            }
+            &.odd {
+              .open-loading {
+                animation: dim 1.5s linear infinite;
+              }
+            }
+        }
+
+        .show-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 12px;
+        }
+    }
+
+    .no-data {
+      position: absolute;
+      inset: 0;
+      top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      .wrapper {
+        text-align: center;
+        .icon {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto;
+          background-image: url(../../../assets/img/common/no-data.png);
+        }
+        .text {
+          margin-top: 8px;
+          padding-left: 20px;
+          text-align: center;
+          letter-spacing: 1px;
+        }
+      }
+    }
+}
+
+::ng-deep {
+    .dir-context {
+        min-height: 40px !important;
+        .mat-menu-content {
+            padding: 0 !important;
+            .dir-context-item {
+                display: flex;
+                min-width: 160px;
+                padding: 12px 16px;
+                transition: all 0.3s;
+                cursor: pointer;
+                &:hover {
+                    background-color: #ebebeb;
+                }
+                .icon {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 8px;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+                &.new {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/new-directory.png);
+                    }
+                }
+                &.open {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/open.png);
+                    }
+                }
+                &.open-new-tab {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/new-tab.png);
+                    }
+                }
+                &.refresh {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/refresh.png);
+                    }
+                }
+                &.upload {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/upload.png);
+                    }
+                }
+                &.delete {
+                    .icon {
+                        background-image: url(../../../assets/img/common/delete.png);
+                    }
+                }
+                &.rename {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/rename.png);
+                    }
+                }
+                &.copy-path {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/copy-path.png);
+                    }
+                }
+                &.set-password {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/set-password.png);
+                    }
+                }
+                &.change-password {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/change-password.png);
+                    }
+                }
+                &.lock {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/lock.png);
+                    }
+                }
+                &.unlock {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/unlocked.png);
+                    }
+                }
+                &.copy {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/copy.png);
+                    }
+                }
+                &.cut {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/cut.png);
+                    }
+                }
+                &.paste {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/paste.png);
+                    }
+                }
+                &.properties {
+                    .icon {
+                        background-image: url(../../../assets/img/directory/information.png);
+                    }
+                }
+            }
+        }
+    }
+    .capacity-information {
+        .item {
+            .title {
+                display: inline-block;
+                width: 140px;
+                letter-spacing: 1px;
+            }
+            .value {
+                font-weight: 550;
+                .plain-text {
+                    display: inline-block;
+                    width: 76px;
+                    letter-spacing: 1px;
+                    text-align: right;
+                }
+                .percentage {
+                    margin-left: 8px;
+                }
+            }
+            span {
+                font-size: 12px;
+            }
+        }
+        .item:not(:last-child) {
+            margin-bottom: 8px;
+        }
+    }
+}
+
+@keyframes blink {
+    from {
+        background-color: initial;
+    }
+    to {
+        background-color: #ddd;
+    }
+}
+
+::ng-deep {
+    .properties-context {
+        max-width: 400px !important;
+        margin: 0 24px;
+        .mat-menu-content {
+            position: relative;
+            min-width: 320px;
+            height: 100%;
+            padding: 12px 16px;
+            overflow: hidden;
+            .wrapper {
+                width: 100%;
+                .item {
+                    .title {
+                        display: inline-block;
+                        width: 140px;
+                        letter-spacing: 1px;
+                    }
+                    .value {
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        .percentage {
+                            margin-left: 12px;
+                        }
+                    }
+                    span {
+                        font-size: 12px;
+                    }
+                }
+                .item:not(:last-child) {
+                    margin-bottom: 8px;
+                }
+            }
+            .progess-spinner-loading {
+                position: absolute;
+            }
+        }
+    }
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+@media screen and (max-width: 576px) {
+  ::ng-deep .loading-block.odd {
+    width: 100% !important;
+  }
+}

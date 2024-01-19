@@ -1,0 +1,10 @@
+﻿global using OpenVN.Application;
+global using OpenVN.Domain;
+global using SharedKernel.Application;
+global using SharedKernel.Domain;
+global using SharedKernel.Infrastructures;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading;
+global using System.Threading.Tasks;

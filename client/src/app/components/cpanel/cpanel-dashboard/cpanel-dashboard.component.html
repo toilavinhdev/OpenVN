@@ -1,0 +1,15 @@
+<div class="cpanel-dashboard">
+  <div class="blocks" *ngIf="!isRecordLoading">
+    <div class="block" *ngFor="let block of blocks; index as i" [ngClass]="block.type"
+      [matTooltip]="block.title + ': ' + (block.priorityValue || (block.value | NumberFormatPipe))"
+      [ngStyle]="{borderColor: block.color}">
+      <div class="title over-3-dots">{{block.title}}</div>
+      <div class="value">{{block.priorityValue || (block.value | NumberFormatPipe)}}</div>
+    </div>
+  </div>
+  <div class="loading-blocks" *ngIf="isRecordLoading">
+    <div class="loading-block" *ngFor="let i of [].constructor(8); index as index" [ngClass]="index % 2 ? 'odd' : 'even'">
+      <open-loading></open-loading>
+    </div>
+  </div>
+</div>

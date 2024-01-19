@@ -1,0 +1,15 @@
+.skeleton-loading {
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1s shine linear infinite;
+    z-index: 999;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}

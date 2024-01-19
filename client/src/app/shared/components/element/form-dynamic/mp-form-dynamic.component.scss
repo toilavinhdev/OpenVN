@@ -1,0 +1,254 @@
+.form-dynamic {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+
+  .form-header,
+  .form-content,
+  .form-header {
+    padding: 4px 16px;
+  }
+
+  .form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    background-color: #e2e4e9;
+
+    .header-left,
+    .header-right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .header-left {
+      .form-title {
+        display: flex;
+        align-items: center;
+        max-width: 280px;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .header-right {
+
+      .add,
+      .save-and-add,
+      .edit,
+      .delete {
+        margin-left: 8px;
+      }
+
+      .btns {
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .btn-responsive {
+        display: none;
+        width: 32px;
+        height: 38px;
+        margin: 0 0 0 16px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        background-image: url(../../../../assets/img/icons.svg);
+        background-repeat: no-repeat;
+        background-position: -1026px -351px;
+        background-color: #fff;
+        transform: rotate(90deg);
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+  }
+
+  .form-content {
+    display: flex;
+    height: calc(100% - 80px);
+    padding: 12px 16px;
+    overflow: auto;
+
+    .content {
+      width: 70%;
+      height: 100%;
+
+      .group-box {
+        .box-name {
+          font-size: 16px;
+          margin-bottom: 16px;
+          color: #747474;
+          font-weight: 600;
+        }
+
+        .box-content {
+          width: 100%;
+          padding-left: 24px;
+
+          .item {
+            // display: flex;
+            // align-items: flex-end;
+            margin-bottom: 36px;
+
+            .item-content {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              width: 100%;
+              padding: 4px;
+
+              .title {
+                min-width: 140px;
+                max-width: 140px;
+                margin-bottom: 4px;
+                color: #333;
+                font-size: 13px;
+                font-weight: 500;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                margin-right: 8px;
+              }
+
+              .input {
+                padding: 0 8px;
+              }
+
+              .item-content-value {
+                width: calc(100% - 140px);
+                height: 32px;
+              }
+
+              .choose-file {
+                display: flex;
+                align-items: center;
+
+                .upload-input {
+                  // width: calc(100% - 120px);
+                  width: 100%;
+                }
+              }
+
+              ::ng-deep &.error {
+                .dx-editor-outlined {
+                  border-color: red !important;
+                }
+              }
+            }
+
+            .error-message {
+              margin-top: 4px;
+              margin-left: 152px;
+              color: red;
+            }
+          }
+        }
+      }
+    }
+
+    .redundant {
+      position: relative;
+      width: 30%;
+      border-radius: 4px;
+      background-color: #e4e4e4;
+    }
+  }
+}
+
+::ng-deep {
+  .dx-fileuploader-wrapper {
+    padding: 0 !important;
+  }
+
+  .dx-texteditor-label {
+    font-weight: 500;
+  }
+
+  .required {
+    .dx-texteditor-label {
+      .dx-label {
+        span::after {
+          content: "*";
+          color: red;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .form-content {
+    .content {
+      width: 100% !important;
+    }
+
+    .redundant {
+      display: none;
+      width: 0% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-title {
+    display: none !important;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .btns {
+    display: none !important;
+  }
+
+  .btn-responsive {
+    display: block !important;
+  }
+
+  ::ng-deep .btn-responsive-menu {
+    padding: 8px 16px;
+
+    .add,
+    .save-and-add,
+    .edit,
+    .cancel,
+    .delete {
+      width: 100% !important;
+      margin-bottom: 8px;
+    }
+  }
+
+  .form-content {
+    .box-content {
+      padding-left: 4px !important;
+      // .item {
+      //   .item-content {
+      //     .title {
+      //       width: 100px !important;
+      //     }
+      //     .select-box,
+      //     .input {
+      //       width: calc(100% - 100px) !important;
+      //     }
+      //     .choose-file {
+      //       .upload-input {
+      //         width: calc(100% - 100px) !important;
+      //       }
+      //     }
+      //   }
+      // }
+    }
+  }
+}

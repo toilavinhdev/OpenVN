@@ -1,0 +1,17 @@
+.notebook-add {
+  width: 360px;
+  height: 46px;
+  padding: 12px 24px;
+  margin: 12px auto;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 6px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  cursor: context-menu;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

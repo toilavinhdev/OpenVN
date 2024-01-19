@@ -1,0 +1,10 @@
+<div class="mp-security">
+  <div class="security-wrapper">
+    <div class="secret-key-input">
+      <dx-text-box #inputInstance label="{{'SECURITY.SECRET_KEY_LABEL' | translate}}" [(value)]="secretKey" (onEnterKey)="onEnterKey($event)"></dx-text-box>
+    </div>
+    <div class="btn-action">
+      <base-button #commitBtn text="{{'SECURITY.COMMIT_BUTTON_TEXT' | translate}}" (onClick)="commit()"></base-button>
+    </div>
+  </div>
+</div>

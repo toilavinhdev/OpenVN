@@ -1,0 +1,30 @@
+<div class="bg-contain launcher-icon" matTooltip="{{'COMMON.LAUNCHER' | translate}}" (click)="openApps($event)">
+</div>
+
+<div class="apps" *ngIf="isOpened" [ngClass]="isLoading ? 'loadingz' : ''" (click)="clickAppInstance($event)">
+    <div class="app home" *ngIf="!isLoading" matTooltip="{{'COMMON.BACK_TO_HOME' | translate}}" (click)="back()">
+        <div class="app-wrapper">
+            <div class="icon"></div>
+            <div class="text">{{'ROUTER.HOME' | translate}}</div>
+        </div>
+    </div>
+
+    <a class="app all" *ngIf="!isLoading" (click)="viewAllApps($event)" [href]="viewAllAppsUrl()">
+        <div class="app-wrapper">
+            <div class="icon"></div>
+            <div class="text">{{'COMMON.ALL' | translate}}</div>
+        </div>
+    </a>
+
+    <a class="app" *ngFor="let app of apps" (click)="viewApp(app, $event)" [href]="viewAppUrl(app)"
+        [title]="app.appName">
+        <div class="app-wrapper">
+            <div class="icon" [ngStyle]="{backgroundImage: 'url(' + app.iconUrl + ')'}">
+                <div *ngIf="app.isFavourite" class="has-favourite" (click)="updateFavourite(app, false, $event)"></div>
+                <div *ngIf="!app.isFavourite" class="favourite" (click)="updateFavourite(app, true, $event)"></div>
+            </div>
+            <div class="text">{{app.appName}}</div>
+        </div>
+    </a>
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

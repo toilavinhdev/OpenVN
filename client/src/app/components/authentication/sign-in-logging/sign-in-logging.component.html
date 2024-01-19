@@ -1,0 +1,13 @@
+<div class="sign-in-logging">
+  <div class="header">
+    <app-common-header></app-common-header>
+  </div>
+
+  <div class="content">
+    <base-grid #grid [data]="data" [isLoading]="isLoading" [displayColumn]="displayColumn" [virtualScroll]="false"
+      [enabledCheck]="false" [enabledEdit]="false" [pageIndex]="paginationRequest.pageIndex"
+      [pageSize]="paginationRequest.pageSize" [pageSizeOptions]="pageSizeOptions" [current]="current" [total]="total"
+      (changePageEvent)="changePage($event)">
+    </base-grid>
+  </div>
+</div>

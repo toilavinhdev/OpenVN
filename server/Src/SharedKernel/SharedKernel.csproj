@@ -1,0 +1,138 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- HealthChecks-->
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.1.0" />
+		
+		<!-- Polly -->
+		<PackageReference Include="Polly" Version="7.2.4" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.0" />
+
+		<!-- Ocelot -->
+		<PackageReference Include="Ocelot" Version="16.0.0" />
+		<PackageReference Include="Ocelot.Provider.Polly" Version="16.0.0" />
+
+		<!-- AutoMapper-->
+		<PackageReference Include="AutoMapper" Version="11.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+
+		<!-- FluentValidation-->
+		<PackageReference Include="FluentValidation.AspNetCore" Version="9.5.4" />
+
+		<!-- Db connection provider-->
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="IdGen" Version="3.0.3" />
+		<PackageReference Include="MySqlConnector" Version="2.1.10" />
+		<PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+
+		<!-- MediatR-->
+		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+
+		<!-- EF Core -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.16">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.16" />
+		<!--<PackageReference Include="System.Data.SqlClient" Version="3.1.5" />-->
+
+		<!-- Excel package-->
+		<PackageReference Include="EPPlus" Version="5.8.12" />
+
+		<!-- RabbitMQ-->
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.6" />
+		<PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
+
+		<!-- Serilog -->
+		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+		<PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
+
+		<!-- ElasticSearch -->
+
+
+		<!-- Caching-->
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.9" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+		<PackageReference Include="StackExchange.Redis" Version="2.6.66" />
+
+		<!-- Authentication-->
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="3.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
+
+		<!-- Swagger-->
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+
+		<!-- AWS S3-->
+		<PackageReference Include="AWSSDK.S3" Version="3.7.101.17" />
+		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
+
+		<!-- HttpClient-->
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+
+		<!-- QR Code-->
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+		
+		<!--<PackageReference Include="tusdotnet" Version="2.7.1" />-->
+
+		<!-- User Agent Parser-->
+		<PackageReference Include="UAParser" Version="3.1.47" />
+
+		<!-- RateLimit-->
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.0" />
+
+		<!-- Other-->
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Magick.NET.Core" Version="13.1.0" />
+		<PackageReference Include="Humanizer.Core" Version="2.14.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.en-US.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.vi-VN.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Domain\DomainEvents\Handlers\" />
+	</ItemGroup>
+</Project>

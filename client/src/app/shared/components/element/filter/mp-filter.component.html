@@ -1,0 +1,32 @@
+<div class="mp-filter">
+  <div class="header2">
+    <h3>Filter</h3>
+  </div>
+  <div class="body">
+    <div class="condition row" *ngFor="let condition of conditions; index as i">
+      <div class="condition-item required condition-field col-6 col-md-4">
+        <dx-select-box [dataSource]="filterable" [(value)]="condition.fieldName" displayExpr="text"
+          valueExpr="key" width="100%" label="Field" placeholder="Select...">
+        </dx-select-box>
+      </div>
+      <div class="condition-item required condition-type col-6 col-md-3">
+        <dx-select-box [dataSource]="conditionTypes" [(value)]="condition.condition" displayExpr="text"
+          valueExpr="value" width="100%" label="Condition" placeholder="Select...">
+        </dx-select-box>
+      </div>
+      <div class="condition-item required condition-value col-11 col-md-4">
+        <dx-text-box width="100%" label="Value to filter"></dx-text-box>
+      </div>
+
+      <div class="alias col-1">
+        ({{i + 1}})
+      </div>
+    </div>
+
+    <div class="btn-add-condition">
+      <base-button #addConditionBtn text="Add condition" [buttonType]="ButtonType.STROKED" [width]="140" [height]="32"
+        [iconButtonType]="IconButtonType.SAVE" [finishImmediately]="true" (onClick)="addCondition()"></base-button>
+    </div>
+  </div>
+  <div class="footer"></div>
+</div>

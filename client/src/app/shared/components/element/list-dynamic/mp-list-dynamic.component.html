@@ -1,0 +1,78 @@
+<div class="list-dynamic">
+  <div class="fn">
+    <div class="fn-left">
+      <div class="filter-input" *ngIf="enableFilter">
+        <dx-text-box mode="search" placeholder="{{'LIST_DYNAMIC.SEARCH_PLACEHOLDER' | translate}}" [disabled]="!filterable || !filterable.length" [(value)]="filterValue" (valueChange)="filter()"
+          [ngStyle]="{paddingRight: '20px'}"></dx-text-box>
+        <div class="filter-advance" (click)="openFilter()" matTooltip="{{'LIST_DYNAMIC.FILTER_ADVANCE_TOOLTIP' | translate}}">
+          <div class="icon"></div>
+        </div>
+
+        <skeleton-loading *ngIf="isFilterFetching"></skeleton-loading>
+      </div>
+      <div class="unselect" *ngIf="isShowDeleteBtn" (click)="grid.changeAllCheckBox(false)">
+        <span style="margin-right: 8px;">{{'LIST_DYNAMIC.UNSELECT' | translate}} {{selectedItemCount | NumberFormatPipe}} {{'LIST_DYNAMIC.RECORDS' | translate}}</span>
+      </div>
+      <div class="delete">
+        <base-button #deleteBtn *ngIf="isShowDeleteBtn" [actionExponents]="[ActionExponent.Delete]" text="{{'COMMON.DELETE' | translate}}"
+          [color]="ButtonColor.WARN" [iconButtonType]="IconButtonType.DELETE" [width]="80" [height]="32"
+          (onClick)="confirmDelete()"></base-button>
+      </div>
+    </div>
+    <div class="fn-right">
+      <div class="reload" (click)="reload()" matTooltip="{{'LIST_DYNAMIC.RELOAD' | translate}}"></div>
+      <div class="export-excel" (click)="openPopupExport()" matTooltip="{{'LIST_DYNAMIC.EXPORT_TO_EXCEL' | translate}}"></div>
+      <div class="btns" *ngIf="!options.gridOnly">
+        <base-button #addBtn [width]="88" [height]="30" text="{{'COMMON.ADD' | translate}}" (onClick)="toAddForm()"
+          (onDblclick)="addBtn.isFinished = true" [actionExponents]="options.addPermissions"
+          [iconButtonType]="IconButtonType.ADD" [color]="ButtonColor.PRIMARY"></base-button>
+      </div>
+      <div class="more" [matMenuTriggerFor]="more" matTooltip="{{'LIST_DYNAMIC.OTHER_FEATURE' | translate}}"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <base-grid #grid [data]="data" [isLoading]="(!virtualScroll && isLoading) || (isLoading && isFirstLoad)" [displayColumn]="options.displayColumn" [virtualScroll]="virtualScroll"
+      [enabledEdit]="options.enabledEdit" [pageIndex]="paginationRequest.pageIndex" [pageSize]="paginationRequest.pageSize" [pageSizeOptions]="pageSizeOptions" [current]="current" [total]="total" [scrollPosition]="200"
+      [enableEmitScroll]="enableEmitScroll" (rowClick)="onRowClick($event)" (rowDblClick)="toViewForm($event)"
+      (detectScrollToAnPosition)="onScrollToPosition($event)" (changePageEvent)="changePage($event)" (checkedEvent)="decideToShowButtons($event)"
+      (sort)="sortGrid($event)" (onEdit)="onClickEdit($event)">
+    </base-grid>
+
+    <div class="loading-bottom" *ngIf="virtualScroll && isLoading && !isFirstLoad">
+      {{'COMMON.LOADING' | translate}}...
+    </div>
+  </div>
+
+  <loading *ngIf="isDeleting"></loading>
+</div>
+
+<mat-menu #more="matMenu" class="list-dynamic-mat-menu">
+  <div class="more-content">
+    <div class="item reload" (click)="reload()" matTooltip="{{'LIST_DYNAMIC.RELOAD' | translate}}">
+      <div class="icon"></div>
+      <div class="text">{{'LIST_DYNAMIC.RELOAD' | translate}}</div>
+    </div>
+
+    <div class="item print" (click)="print()">
+      <div class="icon"></div>
+      <div class="text">{{'LIST_DYNAMIC.PRINT' | translate}}</div>
+    </div>
+
+    <div class="item import" (click)="Utility.featureIsInDevelopment($event)" *ngIf="!options.gridOnly">
+      <div class="icon"></div>
+      <div class="text">{{'LIST_DYNAMIC.IMPORT' | translate}}</div>
+    </div>
+
+    <div class="item export" (click)="openPopupExport()" matTooltip="Export to excel">
+      <div class="icon"></div>
+      <div class="text">{{'LIST_DYNAMIC.EXPORT' | translate}}</div>
+    </div>
+
+    <div class="item customize-function" *ngFor="let func of options.functions" (click)="func.onClick($event)"
+      [matTooltip]="func.tooltip" [ngStyle]="func.style">
+      <div class="icon" *ngIf="func.isShowIcon" [ngStyle]="{backgroundPosition: func.iconPosition}"></div>
+      <div class="text">{{func.text}}</div>
+    </div>
+  </div>
+</mat-menu>

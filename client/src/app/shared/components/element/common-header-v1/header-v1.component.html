@@ -1,0 +1,137 @@
+<div #header class="common-header">
+  <!-- Dòng đầu  -->
+  <div class="first-row">
+    <div class="header-left">
+      <div class="logo">
+        <div class="img" (click)="toCommonPage()" matTooltip="Notebook App"></div>
+        <div class="text" (click)="toCommonPage()" matTooltip="Notebook App">Notebook App</div>
+      </div>
+      <!-- <div class="greeting">
+              <span style="font-weight: bold; color: #7b7b7b">Hello, {{ fullName }}</span>
+          </div> -->
+    </div>
+
+    <div class="header-right">
+      <div class="manager" *ngIf="signInStatus === AuthStatus.SignedIn">
+        <div class="manager-item upload">
+        </div>
+        <div class="manager-item user" [matMenuTriggerFor]="menu">
+          <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+          <div *ngIf="!isLoadingAvatar && avatarUrl !== ''" class="user-avatar"
+            [ngStyle]="{'backgroundImage': 'url(' + avatarUrl + ')'}"></div>
+          <div *ngIf="!isLoadingAvatar && avatarUrl === ''" class="user-avatar-default">
+            <span>{{avatarNameDefault}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="signin-btn" *ngIf="signInStatus === AuthStatus.SignedOut">
+        <base-button [text]="'SIGN_IN.SIGN_IN_BUTTON_TEXT' | translate" #signinBtn [width]="120" [height]="32" [buttonType]="ButtonType.STROKED"
+          (onClick)="toSignInPage()"></base-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dòng thứ 2  -->
+  <div class="second-row" >
+    <div class="modules">
+      <ng-container *ngFor="let module of modules; index as i">
+        <div #modules *ngIf="i < breakPointIndex" class="module" [ngClass]="currentIndex == i ? 'checked' : ''"
+          (click)="redirect(module.path, i)" [matTooltip]="module.hint != '' ? module.hint: module.moduleName">
+          <div class="inner-module" [ngClass]="module.path">
+            <div class="icon"
+              [ngStyle]="{backgroundPosition: currentIndex != i ? module.iconPosition : module.iconCheckedPosition}">
+            </div>
+            <a class="text" [routerLink]="'/' + module.path" [innerHTML]="module.moduleName"></a>
+          </div>
+        </div>
+      </ng-container>
+
+      <div *ngIf="modules.length >= breakPointIndex" class="module other"
+        [ngClass]="currentIndex >= breakPointIndex ? 'checked' : ''" [matTooltip]="'HEADER.OTHER_CATEGORY' | translate"
+        [matMenuTriggerFor]="otherModule">
+        <div class="inner-module">
+          <div class="icon"></div>
+          <div class="text">{{'HEADER.OTHER' | translate}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- skeleton loading  -->
+    <skeleton-loading *ngIf="isLoadingModule"></skeleton-loading>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <div class="manager-content" style="padding: 12px 24px">
+    <div class="item">
+      <div class="avatar">
+        <skeleton-loading *ngIf="isLoadingAvatar"></skeleton-loading>
+        <div *ngIf="!isLoadingAvatar && avatarUrl !== ''" class="user-avatar"
+          [ngStyle]="{'backgroundImage': 'url(' + avatarUrl + ')'}"></div>
+        <div *ngIf="!isLoadingAvatar && avatarUrl === ''" class="user-avatar-default">
+          <span>{{avatarNameDefault}}</span>
+        </div>
+        <div class="upload-avatar" (click)="openUpdateAvatarPopup($event)">
+          <div class="icon"></div>
+        </div>
+      </div>
+    </div>
+    <div class="item full-name">{{ fullName }}</div>
+    <div class="item feedback" (click)="Utility.featureIsInDevelopment($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.FEEDBACK' | translate}}</div>
+    </div>
+    <div class="item help" (click)="Utility.featureIsInDevelopment($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.HELP_AND_SUPPORT' | translate}}</div>
+    </div>
+    <div class="item setting" (click)="Utility.featureIsInDevelopment($event)">
+      <div class="icon"></div>
+      <div class="text">{{'HEADER.SETTING_AND_PRIVACY' | translate}}</div>
+    </div>
+
+    <div class="item language" [ngClass]="_sharedService.currentLanguage" (click)="$event.stopPropagation()" [matMenuTriggerFor]="chooseLanguage">
+      <div class="icon"></div>
+      <div class="text">
+        <span class="label">{{'SETTING.CURRENT_LANGUAGE_LABEL' | translate}}:</span>
+        <span class="current-lang">{{'SETTING.CURRENT_LANGUAGE' | translate}}</span>
+      </div>
+    </div>
+
+    <div class="item signout">
+      <base-button #signoutBtn [color]="ButtonColor.WARN" text="{{'SIGN_IN.SIGN_OUT_BUTTON_TEXT' | translate}}" (onClick)="signOut()" [width]="240"
+        [height]="44">
+      </base-button>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #otherModule>
+  <div class="other-module">
+    <ng-container *ngFor="let module of modules; index as i">
+      <div #modulesR *ngIf="i >= breakPointIndex" class="module" [ngClass]="currentIndex == i ? 'checked' : ''"
+        (click)="redirect(module.path, i)" [matTooltip]="module.hint != '' ? module.hint: module.moduleName">
+        <div class="inner-module" [ngClass]="module.path">
+          <div class="icon"
+            [ngStyle]="{ backgroundPosition: currentIndex != i ? module.iconPosition : module.iconCheckedPosition }">
+          </div>
+          <a class="text" [routerLink]="'/' + module.path" [innerHTML]="module.moduleName"></a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</mat-menu>
+
+
+<mat-menu #chooseLanguage>
+  <div class="choose-language">
+    <div class="lang en" *ngIf="_sharedService.currentLanguage == 'en-US'" (click)="translationService.use('vi-VN')">
+      <span class="flag"></span>
+      <div class="text">Việt Nam</div>
+    </div>
+    <div class="lang vi" *ngIf="_sharedService.currentLanguage == 'vi-VN'" (click)="translationService.use('en-US')">
+      <span class="flag"></span>
+      <div class="text">English</div>
+    </div>
+  </div>
+</mat-menu>

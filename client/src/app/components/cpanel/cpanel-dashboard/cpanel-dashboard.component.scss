@@ -1,0 +1,86 @@
+::ng-deep .cpanel-dashboard {
+  height: 100%;
+  .blocks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 16px;
+    .block {
+      display: inline-block;
+      width: 240px;
+      height: 96px;
+      padding: 12px 16px;
+      margin: 8px 24px 24px 0;
+      border-bottom: 3px solid #ffc107;
+      border-radius: 2px;
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 10px;
+      transition: all 0.3s;
+      cursor: pointer;
+      .title {
+        font-size: 11px;
+        color: #616161;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.6;
+      }
+      .value {
+        margin-top: 12px;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &.account {
+        border-color: #3258ad;
+      }
+      &.storage {
+        border-color: #aa143f;
+      }
+      &.notebook {
+        border-color: #52d59e;
+      }
+    }
+  }
+
+  .loading-blocks {
+    height: 200px;
+    .loading-block {
+      position: relative;
+      display: inline-block;
+      width: 280px;
+      height: 80px;
+      margin: 16px;
+      .open-loading {
+        .circle {
+          .skeleton-loading {
+            border-radius: 2px;
+          }
+        }
+      }
+      &.even {
+        .open-loading {
+          animation: dim 2s linear infinite;
+          animation-delay: 0.3s;
+        }
+      }
+      &.odd {
+        .open-loading {
+          animation: dim 1.5s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .blocks {
+    .block {
+      width: 100%;
+    }
+  }
+}

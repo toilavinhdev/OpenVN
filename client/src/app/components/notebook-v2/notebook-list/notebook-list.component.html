@@ -1,0 +1,98 @@
+<div class="notebook-list" [ngClass]="SharedService.DeviceType == DeviceType.Desktop ? 'desktop' : 'mobile'">
+  <div class="list-note-wrapper" *ngIf="!isLoading">
+
+    <div class="categories">
+      <div *ngFor="let category of categories" class="category" [ngClass]="isDragging ? 'dragging' : ''">
+        <div class="category-box">
+          <div class="category-name" *ngIf="!category.isEditMode">
+            <span class="text" (click)="category.isExpand = !category.isExpand">{{category.name}}</span>
+            <div [ngClass]="category.isExpand ? 'expand' : 'k-collapse'" (click)="category.isExpand = !category.isExpand"></div>
+            <span *ngIf="category.id !== '0'" class="edit" (click)="editMode(category)"></span>
+            <span *ngIf="category.id !== '0'" class="remove" (click)="removeCategory(category)"></span>
+          </div>
+
+          <div class="category-name" *ngIf="category.isEditMode">
+            <mat-form-field appearance="fill">
+              <input #categoryInput matInput [(ngModel)]="category.name" (keyup)="onKeyup(category, $event)"
+                [spellcheck]="false" />
+            </mat-form-field>
+            <span class="update" (click)="updateCategory(category)"></span>
+            <span class="cancel" (click)="category.isEditMode = false"></span>
+          </div>
+
+          <div class="notes" *ngIf="category.isExpand">
+            <div class="note" *ngFor="let note of category.notes" (click)="view(note, $event)" (cdkDragStarted)="drag()"
+              (cdkDragMoved)="scrollOnMoving($event)" (cdkDragEnded)="dragEnded()" (mouseenter)="note.isHover = true"
+              (mouseleave)="note.isHover = false" [ngClass]="note.isPinned ? 'pinned' : ''"
+              [ngStyle]="{backgroundColor: note.backgroundColor}" [matTooltip]="note.title">
+              <div class="note-title">
+                {{note.title}}
+              </div>
+              <div class="note-content" *ngIf="false && SharedService.DeviceType == DeviceType.Desktop">
+                <!-- {{note.content}} -->
+                <editor [(ngModel)]="note.content" [init]="config" [disabled]="false" (onClick)="view(note, $event)">
+                </editor>
+              </div>
+
+              <div class="note-function">
+                <div class="item notification" matTooltip="{{'NOTEBOOK.NOTIFICATION_TOOLTIP' | translate}}"
+                  (click)="setNotification(note, $event)"></div>
+
+                <div class="item edit" matTooltip="{{'NOTEBOOK.EDIT_TOOLTIP' | translate}}"
+                  (click)="edit(note, $event)"></div>
+
+                <div class="item background-color" [id]="'t' + note.id"
+                  matTooltip="{{'NOTEBOOK.BACKGROUND_TOOLTIP' | translate}}" (click)="setBackground(note, $event)">
+                </div>
+
+                <div class="item remove" matTooltip="{{'NOTEBOOK.REMOVE_TOOLTIP' | translate}}"
+                  (click)="remove(note, $event)"></div>
+
+                <a class="item view-mode" matTooltip="{{'NOTEBOOK.VIEW_MODE_TOOLTIP' | translate}}"
+                  [href]="Routing.NOTEBOOK_VIEW_MODE.path + '/' + note.id" target="_blank" (click)="$event.stopPropagation()"></a>
+              </div>
+
+              <div class="pin-icon" matTooltip="Pin note" (click)="changePin(note, !note.isPinned, $event)"></div>
+
+              <dx-popover [visible]="isPopoverVisible && targetId == note.id" [target]="'#t' + note.id" [minWidth]="320"
+                (onHidden)="isPopoverVisible = false; targetId = ''">
+                <div class="color-options">
+                  <div class="color" *ngFor="let color of colors" [ngStyle]="{backgroundColor: color}"
+                    [ngClass]="color == note.backgroundColor ? 'selected' : ''"
+                    (mouseenter)="note.backgroundColor = color"
+                    (mouseleave)="note.backgroundColor = note.originBackgroundColor"
+                    (click)="changeBackground(note, color, $event)">
+                    <div class="checkmark"></div>
+                  </div>
+                </div>
+              </dx-popover>
+
+              <progess-spinner-loading *ngIf="note.isLoading"></progess-spinner-loading>
+            </div>
+
+            <div class="add-note" *ngIf="category.id != '0'" matTooltip="{{'NOTEBOOK.TAKE_A_NOTE' | translate}}"
+              (click)="openPopup(category)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-category">
+        <div class="add-icon" *ngIf="!isAddingCategory" (click)="startAddingCategory()"></div>
+        <span *ngIf="!isAddingCategory" (click)="startAddingCategory()">{{'NOTEBOOK.NEW_CATEGORY' | translate}}</span>
+
+        <mat-form-field appearance="fill" *ngIf="isAddingCategory">
+          <input #categoryInput matInput [(ngModel)]="category.name" (keyup)="onEnter($event)" [spellcheck]="false"
+            (blur)="isAddingCategory = false" placeholder="{{'NOTEBOOK.ENTER_CATEGORY_NAME' | translate}}" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-wrapper" *ngIf="isLoading">
+    <div class="loading-block" *ngFor="let i of [].constructor(SharedService.DeviceType == DeviceType.Desktop ? 40 : 10); index as index" [ngClass]="index % 2 ? 'odd' : 'even'" >
+      <open-loading></open-loading>
+    </div>
+  </div>
+
+</div>

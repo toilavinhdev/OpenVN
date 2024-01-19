@@ -1,0 +1,8 @@
+{
+  "SignIn": "proc_sign_in",
+  "GetRoleAction": "proc_get_role_action",
+  "GetRoleActions": "proc_get_role_actions",
+  "CreateOrUpdateRefreshToken": "proc_create_or_update_refresh_token",
+  "SetRoleForUser": "proc_set_role_for_user",
+  "GetRecordDashboard":  "proc_get_record_dashboard"
+}

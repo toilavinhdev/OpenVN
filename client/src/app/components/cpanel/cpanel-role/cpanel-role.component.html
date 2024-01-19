@@ -1,0 +1,23 @@
+<div class="cpanel-role">
+  <div class="role-wrapper row" *ngIf="!isLoading">
+    <div class="role col-lg-4 col-md-6 col-xs-12" *ngFor="let role of roles">
+      <div class="role-name">
+        {{role.roleName}}
+      </div>
+      <div class="actions">
+        <div class="action" *ngFor="let action of role.actions" [matTooltip]="action.description" (click)="updateRole(role, action, $event)">
+         <div class="checkbox">
+          <dx-check-box width="20" height="20" [value]="!!action.isContain" [disabled]="!!action.disabled"></dx-check-box>
+         </div>
+         <span class="text" [ngClass]="!!action.disabled ? 'disabled' : ''">{{action.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="save-change">
+    <base-button text="{{'COMMON.UPDATE' | translate}}" [height]="48"></base-button>
+  </div>
+
+  <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

@@ -1,0 +1,36 @@
+<div class="base-uploader">
+  <div class="uploader">
+    <ngx-dropzone #dropzone class="ngx-dropzone" [multiple]="multiple" (change)="onSelect($event)"
+      [accept]="allowedFileExtensions" [expandable]="false" [disabled]="disabled">
+      <ngx-dropzone-label>
+        <div>Drag and drop images here</div>
+        <div>Or click here to choose images</div>
+      </ngx-dropzone-label>
+
+      <ng-container *ngFor="let f of files">
+        <ngx-dropzone-image-preview *ngIf="f.type.startsWith('image')" [ngClass]="!multiple ? 'single' : ''" [file]="f" [removable]="true"
+          (removed)="onRemove(f)">
+          <!-- <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label> -->
+        </ngx-dropzone-image-preview>
+
+        <ngx-dropzone-video-preview *ngIf="f.type.startsWith('video')" [ngClass]="!multiple ? 'single' : ''" [file]="f" [removable]="true"
+          (removed)="onRemove(f)">
+        </ngx-dropzone-video-preview>
+
+        <ngx-dropzone-preview *ngIf="!f.type.startsWith('image') && !f.type.startsWith('video')" [ngClass]="!multiple ? 'single' : ''" [file]="f"
+          [removable]="true" (removed)="onRemove(f)">
+          <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ng-container>
+
+    </ngx-dropzone>
+  </div>
+
+  <div class="upload-btn" *ngIf="showUploadButton && !emitAutomatically">
+    <base-button #uploadBtn text="{{'COMMON.UPLOAD' | translate}}" (onClick)="upload()" [disabled]="files.length === 0"></base-button>
+  </div>
+
+  <div class="upload-btn" *ngIf="showUploadButton && emitAutomatically">
+    <base-button #uploadBtn text="{{'COMMON.UPLOAD' | translate}}" (onClick)="upload()" [disabled]="true"></base-button>
+  </div>
+</div>

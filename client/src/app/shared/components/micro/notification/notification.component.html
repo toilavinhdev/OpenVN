@@ -1,0 +1,74 @@
+<div class="notification-block">
+    <div class="bg-cover notification-bell" [matMenuTriggerFor]="notificationsMenu" (click)="loadNotificationAndNumberUnread()">
+        <div class="number-of-notification" *ngIf="numberOfNotifications > 0">{{displayNotificationNumber()}}</div>
+        <skeleton-loading *ngIf="isLoadingNumberOfUnreadNotification"></skeleton-loading>
+    </div>
+</div>
+
+
+<mat-menu #notificationsMenu class="notifications-management">
+    <div class="notification-wrapper" (click)="stopEvent($event)">
+        <div class="header" *ngIf="!isLoadingNotification">
+            <div class="title">
+                <span class="name">{{'COMMON.NOTIFICATION_TITLE' | translate }}</span>
+                <span class="mark-all-as-read" (click)="markAllAsRead($event)">{{'COMMON.MARK_ALL_AS_READ' | translate }}</span>
+            </div>
+
+            <div class="notification-navbar">
+                <div class="nav-item all" [ngClass]="navbarOn == 'all' ? 'selected': ''" (click)="changeNavigator('all')">
+                    {{'COMMON.ALL' | translate}}
+                </div>
+                <div class="nav-item unread" [ngClass]="navbarOn == 'unread' ? 'selected': ''" (click)="changeNavigator('unread')">
+                    {{'COMMON.UNREAD' | translate}}
+                    <!-- <div class="number-of-notification" *ngIf="numberOfNotifications > 0">{{displayNotificationNumber()}}</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="notification-list" *ngIf="!isLoadingNotification && notifications && notifications.length">
+            <div class="notification" *ngFor="let notification of notifications" [ngClass]="notification.isUnread ? 'unread' : ''">
+                <div class="icon"></div>
+                <div class="description">
+                    <div class="content">{{notification.description}}</div>
+                    <div class="time">{{notification.datetime}}</div>
+                </div>
+                <div class="blue-dot" *ngIf="notification.isUnread"></div>
+                <div class="functions" [matMenuTriggerFor]="notificationFunctions" (click)="selectedNotification = notification; stopEvent($event)"></div>
+            </div>
+        </div>
+
+        <div class="no-data" *ngIf="(!notifications || !notifications.length) && !isLoadingNotification">
+            <div class="icon"></div>
+        </div>
+
+        <div class="loading-wrapper" *ngIf="isLoadingNotification">
+            <div class="loading-effect" *ngFor="let i of [].constructor(10); index as index" [ngClass]="index % 2 == 0? 'even' : 'odd'">
+                <open-loading></open-loading>
+            </div>
+        </div>
+
+        <!-- <progess-spinner-loading *ngIf="isLoadingNotification"></progess-spinner-loading> -->
+    </div>
+</mat-menu>
+
+<mat-menu #notificationFunctions class="notification-functions">
+    <div class="function-wrapper" (click)="stopEvent($event)">
+        <div class="item mark-as-read" *ngIf="selectedNotification.isUnread" (click)="markAsRead(selectedNotification.id, $event)">
+            <div class="icon"></div>
+            <div class="text">{{'COMMON.MARK_AS_READ' | translate}}
+            </div>
+        </div>
+        <div class="item mark-as-unread" *ngIf="!selectedNotification.isUnread" (click)="markAsUnread(selectedNotification.id, $event)">
+            <div class="icon"></div>
+            <div class="text">{{'COMMON.MARK_AS_UNREAD' | translate}}
+            </div>
+        </div>
+        <div class="item detail" *ngIf="selectedNotification.type == NotificationType.SignIn" (click)="redirect(Routing.SIGN_IN_HISTORY.path)">
+            <div class="icon"></div>
+            <div class="text">{{'COMMON.VIEW_DETAIL' | translate}}</div>
+        </div>
+        <div class="item delete" (click)="deleteNotification($event)">
+            <div class="icon"></div>
+            <div class="text">{{'COMMON.DELETE' | translate}}</div>
+        </div>
+    </div>
+</mat-menu>

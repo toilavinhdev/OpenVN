@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>open vn</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <!-- <meta name="referrer" content="no-referrer" /> -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <!-- <link rel="stylesheet" href="./assets/css/var-spacing.css" />
+    <link rel="stylesheet" href="./assets/css/style-scroll.css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Baloo+Da+2&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!-- <script src="https://accounts.google.com/gsi/client"></script> -->
+</head>
+
+<body class="mat-typography dx-viewport">
+  <app-root></app-root>
+  <div id="notification-hook">
+    <div class="vertical"></div>
+    <div class="icon bg-contain"></div>
+    <div class="message"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://unpkg.com/moment-lunar@0.0.4/moment-lunar.min.js"></script>
+</body>
+
+<script>
+  // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //   if (!window.location.host.startsWith("mobile")) {
+  //     window.location.href = `${window.location.protocol}//mobile.${window.location.host}`;
+  //   }
+  // }
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+</script>
+
+<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+</html>

@@ -1,0 +1,57 @@
+<div id="signin" class="bg-cover">
+  <div class="signin-form shadow">
+    <div class="form-header bg-contain"></div>
+
+    <div style="
+        text-align: center;
+        font-weight: bold;
+      font-size: 22px;
+        margin-bottom: 24px;
+        color: #008dd2;
+      ">
+      {{'SIGN_IN.LABEL' | translate}}
+    </div>
+
+    <div class="form-content">
+      <div class="row-item username" [ngClass]="!error.isValid && error.type == 'username' ? 'error': ''">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'SIGN_IN.USERNAME_PLACEHOLDER' | translate}} <span style="color: red">*</span></mat-label>
+          <input #username matInput [(ngModel)]="userCred.userName" (keyup)="signinByEnter($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="row-item password" [ngClass]="!error.isValid && error.type == 'password' ? 'error': ''">
+        <mat-form-field appearance="fill">
+          <mat-label>{{'SIGN_IN.PASSWORD_PLACEHOLDER' | translate}} <span style="color: red">*</span></mat-label>
+          <input #password type="password" matInput [(ngModel)]="userCred.password" (keyup)="signinByEnter($event)" />
+        </mat-form-field>
+      </div>
+
+      <div class="error-message">{{error.message}}</div>
+
+      <div class="row-item forgot-password">
+        <a [routerLink]="['/' + Routing.SIGN_IN.path]"
+          (click)="Utility.featureIsInDevelopment($event)">{{'SIGN_IN.FORGOTTEN_PASSWORD' | translate}}</a>
+      </div>
+
+      <div class="row-item signin-btn">
+        <base-button #signinBtn [text]="'SIGN_IN.SIGN_IN_BUTTON_TEXT' | translate" ngClass="full-width"
+          (onClick)="signIn($event)" [height]="48">
+        </base-button>
+        <!-- <div #googleBtn id="googleBtn"></div> -->
+      </div>
+
+      <div class="row-item have-no-account" style="margin-top: 16px; text-align: center">
+        <p>
+          {{'SIGN_IN.HAVE_NO_ACCOUNT' | translate}}
+          <a [routerLink]="['/' + Routing.SIGN_UP.path]" class="register-text">{{'SIGN_IN.REGISTER' | translate}}</a>
+        </p>
+      </div>
+    </div>
+    <!-- <div class="form-footer">Copyright ©2022 SWE Team</div> -->
+  </div>
+
+  <div class="language">
+    <language></language>
+  </div>
+</div>

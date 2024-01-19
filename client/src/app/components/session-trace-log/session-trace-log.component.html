@@ -1,0 +1,15 @@
+<div class="session-trace-log">
+    <div class="header">
+        <div class="launcher">
+            <app-launcher></app-launcher>
+        </div>
+        <div class="title">Log trong phiên làm việc hiện tại <span class="bg-contain" [matTooltip]="tooltip"></span>
+        </div>
+    </div>
+    <cdk-virtual-scroll-viewport *ngIf="!isLoading" [itemSize]="1" class="virtual-scroll" #virtualScroll>
+        <ng-container *cdkVirtualFor="let log of logs; index as index">
+            <div [innerHTML]="log" class="log"></div>
+        </ng-container>
+    </cdk-virtual-scroll-viewport>
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+</div>

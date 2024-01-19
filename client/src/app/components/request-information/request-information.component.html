@@ -1,0 +1,55 @@
+<div class="request-information">
+  <div class="header">
+    <app-common-header></app-common-header>
+  </div>
+  <div class="content">
+    <div class="wrapper">
+      <div class="item ip">
+        <span class="title">{{'REQUEST_INFORMATION.IP' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ip}}">{{information.ip}}</span>
+      </div>
+      <div class="item browser">
+        <span class="title">{{'REQUEST_INFORMATION.BROWSER' | translate}}: </span>
+        <span class="value" matTooltip="{{information.browser}}">{{information.browser}}</span>
+      </div>
+      <div class="item os">
+        <span class="title">{{'REQUEST_INFORMATION.OS' | translate}}: </span>
+        <span class="value" matTooltip="{{information.os}}">{{information.os}}</span>
+      </div>
+      <div class="item device">
+        <span class="title">{{'REQUEST_INFORMATION.DEVICE' | translate}}: </span>
+        <span class="value" matTooltip="{{information.device}}">{{information.device}}</span>
+      </div>
+      <div class="item city">
+        <span class="title">{{'REQUEST_INFORMATION.CITY' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.city}}">{{information.ipInformation.city}}</span>
+      </div>
+      <div class="item country">
+        <span class="title">{{'REQUEST_INFORMATION.COUNTRY' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.country}}">{{information.ipInformation.country}}</span>
+      </div>
+      <div class="item loc">
+        <span class="title">{{'REQUEST_INFORMATION.LOC' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.loc}}">{{information.ipInformation.loc}}</span>
+      </div>
+      <div class="item org">
+        <span class="title">{{'REQUEST_INFORMATION.ORG' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.org}}">{{information.ipInformation.org}}</span>
+      </div>
+      <div class="item postal">
+        <span class="title">{{'REQUEST_INFORMATION.POSTAL' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.postal}}">{{information.ipInformation.postal}}</span>
+      </div>
+      <div class="item timezone">
+        <span class="title">{{'REQUEST_INFORMATION.TIMEZONE' | translate}}: </span>
+        <span class="value" matTooltip="{{information.ipInformation.timezone}}">{{information.ipInformation.timezone}}</span>
+      </div>
+      <div class="item time">
+        <span class="title">{{'REQUEST_INFORMATION.TIME' | translate}}: </span>
+        <span class="value" matTooltip="{{information.time}}">{{information.time}}</span>
+      </div>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+  </div>
+</div>

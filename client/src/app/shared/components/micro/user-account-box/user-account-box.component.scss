@@ -1,0 +1,279 @@
+::ng-deep .avatar-management {
+  .mat-menu-content {
+    height: 100%;
+
+    .wrapper {
+      height: 100%;
+
+      .item {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        cursor: pointer;
+
+        .icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+
+        .text {
+          color: #616161;
+          letter-spacing: 1px;
+        }
+
+        &.update {
+          .icon {
+            background-image: url(../../../../../assets/img/common/image.png);
+          }
+        }
+
+        &.remove {
+          .icon {
+            background-image: url(../../../../../assets/img/common/delete.png);
+          }
+        }
+      }
+    }
+  }
+}
+
+.choose-language {
+  padding: 2px 4px;
+
+  .lang {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #eeeeee;
+    }
+
+    .flag {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .text {
+      font-weight: 500;
+    }
+
+    &.en {
+      .flag {
+        background-image: url(../../../../../assets/img/flags/vietnam.png);
+      }
+    }
+
+    &.vi {
+      .flag {
+        background-image: url(../../../../../assets/img/flags/us.png);
+      }
+    }
+  }
+}
+
+
+::ng-deep .manager-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .item {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+    transition: all 0.3s;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      background-image: url(../../../../../assets/img/icons.svg);
+      background-repeat: no-repeat;
+      background-position: -16px -48px;
+    }
+  }
+
+  .avatar,
+  .default-avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #d9d9d9;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+
+    .camera {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #e6e6e6;
+
+      .camera-icon {
+        width: 16px;
+        height: 16px;
+        background-image: url(../../../../../assets/img/common/camera.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+      }
+    }
+
+    .skeleton-loading {
+      inset: -1px;
+      border-radius: 50%;
+    }
+  }
+
+  .default-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #172b4d;
+
+    .short-name {
+      color: #fff;
+      font-size: 32px;
+      text-transform: uppercase;
+    }
+  }
+
+  .full-name {
+    position: relative;
+    min-height: 30px;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: context-menu;
+
+    span {
+      max-width: 80%;
+    }
+
+    .skeleton-loading {
+      inset: 0 2px;
+    }
+  }
+
+  .ip,
+  .feedback,
+  .help,
+  .setting,
+  .audit,
+  .language {
+    justify-content: initial;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  .ip {
+    position: relative;
+    align-items: flex-end;
+    justify-content: center;
+    cursor: context-menu;
+
+    .icon {
+      width: 22px;
+      height: 22px;
+      margin-left: 2px;
+      margin-bottom: 2px;
+      background-image: url(../../../../../assets/img/ip-address.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .text {
+      font-weight: bold;
+    }
+
+    .skeleton-loading {
+      inset: 6px 2px;
+    }
+
+    &:hover {
+      background-color: initial;
+    }
+  }
+
+  .feedback {
+    .icon {
+      background-position: -747px -356px;
+    }
+  }
+
+  .help {
+    .icon {
+      background-position: -1594px -307px;
+    }
+  }
+
+  .setting {
+    .icon {
+      background-position: -506px -308px;
+    }
+  }
+
+  .signout {
+    margin-top: 24px;
+  }
+
+  .language {
+    padding-left: 6px;
+    padding-right: 6px;
+
+    .icon {
+      background-position: center;
+      background-size: contain;
+    }
+
+    &.en-US .icon {
+      background-image: url(../../../../../assets/img/flags/us.png);
+    }
+
+    &.vi-VN .icon {
+      background-image: url(../../../../../assets/img/flags/vietnam.png);
+    }
+
+    .text {
+      .label {
+        margin-right: 12px;
+      }
+
+      .current-lang {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .avatar {
+    margin-left: 8px !important;
+  }
+}

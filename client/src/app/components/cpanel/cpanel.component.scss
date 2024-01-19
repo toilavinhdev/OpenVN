@@ -1,0 +1,72 @@
+.cpanel {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    .header {
+        height: 60px;
+        border-bottom: 1px solid #ebebeb;
+    }
+    .sidebar {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        width: 240px;
+        padding: 8px;
+        border-right: 1px solid #ebebeb;
+        .router {
+            height: calc(100% - 28px);
+            overflow: auto;
+            .sidebar-item {
+                display: flex;
+                align-items: center;
+                padding: 8px 16px;
+                margin-bottom: 2px;
+                border-radius: 2px;
+                font-size: 12px;
+                color: #333;
+                font-weight: 500;
+                text-decoration: none;
+                transition: all 0.3s;
+                cursor: pointer;
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 12px;
+                }
+                &:hover {
+                    background-color: #e0e0e0;
+                }
+                &.selected {
+                    background-color: #ebebeb;
+                }
+                &.dashboard {
+                    .icon {
+                        background-image: url(../../../assets/img/common/home.png);
+                    }
+                }
+                &.user {
+                    .icon {
+                        background-image: url(../../../assets/img/common/group.png);
+                    }
+                }
+                &.role {
+                    .icon {
+                        background-image: url(../../../assets/img/common/user.png);
+                    }
+                }
+            }
+        }
+        .online {
+            height: 28px;
+        }
+    }
+    .content {
+        position: absolute;
+        top: 60px;
+        left: 240px;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+    }
+}

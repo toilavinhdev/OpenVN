@@ -1,0 +1,51 @@
+::ng-deep .cpanel-role {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  .progess-spinner-loading {
+    position: absolute !important;
+  }
+  .role-wrapper {
+    height: calc(100% - 52px);
+    padding: 16px;
+    overflow: auto;
+    .role {
+      margin-bottom: 24px;
+      border-right: 1px dotted #ddd;
+      .role-name {
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .action {
+          flex-basis: 45%;
+          display: flex;
+          align-items: flex-start;
+          min-width: 200px !important;
+          min-height: 24px;
+          margin-bottom: 4px;
+          cursor: pointer;
+          .checkbox {
+            margin-right: 12px;
+
+            .dx-checkbox-icon {
+              width: 20px;
+              height: 20px;
+            }
+          }
+          .text.disabled {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+  .save-change {
+    height: 52px;
+    padding: 2px 4px;
+  }
+}

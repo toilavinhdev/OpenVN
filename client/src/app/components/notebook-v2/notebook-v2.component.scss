@@ -1,0 +1,74 @@
+.notebook-v2 {
+    height: 100%;
+    overflow: auto;
+    .notebook-header-wrapper {
+        position: sticky;
+        top: 0;
+        height: 64px;
+        background-color: #fff;
+        transition: all 0.3s;
+        z-index: 668;
+        &.scroll {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+            border-radius: 2px;
+        }
+    }
+    .notebook-content-wrapper {
+        height: calc(100% - 80px);
+        &.kanban {
+            overflow: hidden;
+            .add-new {
+                height: 0;
+                margin-bottom: 0;
+                visibility: hidden;
+            }
+        }
+        .add-new {
+            height: 64px;
+            margin-bottom: 12px;
+        }
+        .list-notes {
+            height: calc(100% - 76px);
+        }
+        .kanban-notes {
+            height: 100%;
+            padding: 8px 16px 16px 16px;
+        }
+    }
+     ::ng-deep {
+        // .common-header {
+        //   .wrapper {
+        //     .left {
+        //       .search {
+        //         width: calc(100% - 108px);
+        //       }
+        //     }
+        //   }
+        // }
+    }
+}
+
+.load-tiny {
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+::ng-deep .user-man {
+    .mode {
+        display: flex;
+        align-items: center;
+        height: 32px;
+        padding: 8px 12px;
+        margin-left: 2px;
+        .text {
+            margin-right: 8px;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .avatar {
+        margin-left: 8px !important;
+    }
+}

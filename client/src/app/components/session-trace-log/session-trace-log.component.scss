@@ -1,0 +1,75 @@
+::ng-deep .session-trace-log {
+    height: 100%;
+    padding: 4px;
+
+    .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 60px;
+
+        .launcher {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            width: 32px;
+            height: 32px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            span {
+                display: block;
+                width: 16px;
+                height: 16px;
+                margin-left: 8px;
+                background-image: url(../../../assets/img/directory/information.png);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .virtual-scroll {
+        height: calc(100% - 60px);
+        scroll-behavior: smooth;
+
+        .log {
+            margin-bottom: 4px;
+        }
+
+        span {
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .success {
+            color: #28a745;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+
+        .warning {
+            color: #ffc107;
+        }
+    }
+
+    .cdk-virtual-scroll-content-wrapper {
+        width: 100% !important;
+        padding: 16px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .title {
+        font-size: 13px !important;
+    }
+}

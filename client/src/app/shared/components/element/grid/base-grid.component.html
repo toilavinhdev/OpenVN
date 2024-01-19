@@ -1,0 +1,112 @@
+<div class="base-grid">
+  <div class="grid-content">
+    <ng-content select=".grid-toolbar"></ng-content>
+    <div #gridContentBody class="grid-content-body" [ngClass]="!enabledPagination ? 'no-pagination' : ''">
+
+      <!-- table  -->
+      <div #table class="table" (scroll)="onScroll($event)">
+        <!-- header  -->
+        <div class="table-header" [ngClass]="isLoading ? 'invisible' : ''">
+          <div *ngIf="enabledCheck" class="column column-header sticky"
+            [ngStyle]="{minWidth: '56px', maxWidth: '56px', width: '56px'}">
+            <dx-check-box #checkAll (click)="onCheckAll($event)"></dx-check-box>
+          </div>
+
+          <div *ngIf="enabledEdit" class="column column-header edit"
+            [ngStyle]="{minWidth: '56px', maxWidth: '56px', width: '56px'}">
+          </div>
+
+          <div class="column column-header" [ngClass]="[col.column, col.class || '']" [ngStyle]="setWidth(col)"
+            *ngFor="let col of displayColumn; index as i">
+            <div class="text">{{col.displayText}}</div>
+
+            <div class="sort" *ngIf="col.sortable === undefined || col.sortable">
+              <div class="sort-icon"
+                [ngClass]="sortAscendingValue[i].firstClick ? '' : sortAscendingValue[i].sortAscending ? 'asc' : 'desc'"
+                (click)="sortGrid(col, i)"></div>
+            </div>
+            <!-- <div class="filter" (click)="Utility.featureIsDeveloping($event)">
+                            <div class="filter-icon"></div>
+                        </div> -->
+          </div>
+        </div>
+
+        <!-- body  -->
+        <div class="table-body">
+
+          <!-- skeleton loading  -->
+          <div class="on-loading" *ngIf="isLoading">
+            <div class="row-loading" *ngFor="let row of [].constructor(numberOfRows)">
+              <div class="wrapper-column" *ngFor="let col of displayColumn; index as i" [ngStyle]="setWidth(col)">
+                <div class="column-loading">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="loaded" *ngIf="!isLoading">
+            <div class="row-item" [ngClass]="checkedList[i] ? 'checked' : ''" *ngFor="let item of data; index as i"
+              (click)="onRowClick(item)" (dblclick)="onRowDblClick(item)">
+              <div *ngIf="enabledCheck" class="column column-body sticky"
+                [ngStyle]="{minWidth: '56px', maxWidth: '56px', width: '56px'}">
+                <dx-check-box [value]="checkedList[i]" (onValueChanged)="onCheck($event, i)"></dx-check-box>
+              </div>
+
+              <div *ngIf="enabledEdit" class="column column-body edit dis-flex"
+                [ngStyle]="{minWidth: '56px', maxWidth: '56px', width: '56px'}" (click)="onRowEdit(item)">
+                <div class="icon"></div>
+              </div>
+
+              <!-- matTooltip="{{item[col.column]}}"  -->
+              <div class="column column-body" [ngClass]="[col.column, col.class || '']" [ngStyle]="setWidth(col)"
+                *ngFor="let col of displayColumn; index as i">
+                <ng-container [ngSwitch]="col.type">
+                  <!-- Nếu là link    -->
+                  <a *ngSwitchCase="GroupBoxFieldType.Link" [href]="col.getLink(item) || item[col.column]" [target]="col.target ?? '_self'"
+                    [matTooltip]="item[col.column]">{{item[col.column]}}</a>
+
+                  <!-- Nếu là số  -->
+                  <p *ngSwitchCase="GroupBoxFieldType.Number" [matTooltip]="item[col.column] | NumberFormatPipe">
+                    {{item[col.column] | NumberFormatPipe}}</p>
+
+                  <!-- Nếu là ngày  -->
+                  <p *ngSwitchCase="GroupBoxFieldType.Date" [matTooltip]="item[col.column] | DateVietnamPipe">
+                    {{item[col.column] | DateVietnamPipe}}</p>
+
+                  <!-- Nếu là ngày giờ -->
+                  <p *ngSwitchCase="GroupBoxFieldType.DateTime" [matTooltip]="item[col.column] | DateTimeVietnamPipe">
+                    {{item[col.column] | DateTimeVietnamPipe}}</p>
+
+                  <!-- Nếu là tag  -->
+                  <p *ngSwitchCase="GroupBoxFieldType.Tag" [ngStyle]="{color: item['tagColor'], fontWeight: 500}"
+                    [matTooltip]="item[col.column]">
+                    {{item[col.column]}}</p>
+
+                  <!-- Default  -->
+                  <p *ngSwitchDefault [matTooltip]="item[col.column]">{{item[col.column] || ""}}</p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pagination  -->
+    <div class="grid-content-pagination" [ngClass]="{'virtual': virtualScroll}" *ngIf="enabledPagination">
+
+      <div *ngIf="virtualScroll" class="current">Result: <span>{{current > 0 ? 1 : 0}} - {{current |
+          NumberFormatPipe}}</span> in
+        <span>{{total | NumberFormatPipe}}</span>
+      </div>
+
+      <mat-paginator #matPaginator *ngIf="!virtualScroll" aria-label="Select page" [length]="total"
+        [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true"
+        (page)="changePage($event)">
+      </mat-paginator>
+      <!-- <div class="total">Tổng: <span>{{total | NumberFormatPipe}}</span></div> -->
+    </div>
+
+    <!-- <swe-team-loading *ngIf="isLoading"></swe-team-loading> -->
+  </div>
+</div>

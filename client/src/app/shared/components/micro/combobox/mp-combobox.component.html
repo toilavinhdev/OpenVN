@@ -1,0 +1,16 @@
+<div class="mp-combobox">
+  <dx-select-box [dataSource]="dataSource" [displayExpr]="displayExpr" [valueExpr]="valueExpr"
+    [placeholder]="isFetching ? '' : placeholder" [value]="value" (valueChange)="value = $event" [searchEnabled]="true"
+    [noDataText]="noDataText" [disabled]="disabled" [readOnly]="readOnly" [width]="width" [height]="height"
+    [label]="label" [hint]="hint" [name]="name" (onOpened)="onOpenedFunc($event)"
+    (onValueChanged)="onValueChangedFunc($event)" (onEnterKey)="onEnterKeyFunc($event)" (onBlur)="onBlurFunc($event)">
+  </dx-select-box>
+
+  <div class="add-icon" *ngIf="enabledAdd" (click)="onAddFunc($event)">
+    <div class="icon bg-cover"></div>
+  </div>
+
+  <div class="loading" *ngIf="isFetching">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

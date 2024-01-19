@@ -1,0 +1,205 @@
+<div class="form-dynamic">
+  <div class="form-header">
+    <div class="header-left">
+      <div class="form-title">
+        <ng-container *ngIf="formMode === FormMode.Add">
+          {{title.add || 'FORM_DYNAMIC.FORM_TITLE.ADD' | translate}}
+        </ng-container>
+        <ng-container *ngIf="formMode === FormMode.ViewDetail">
+          {{title.view || 'FORM_DYNAMIC.FORM_TITLE.VIEW' | translate}}
+        </ng-container>
+        <ng-container *ngIf="formMode === FormMode.Edit">
+          {{title.edit || 'FORM_DYNAMIC.FORM_TITLE.EDIT' | translate}}
+        </ng-container>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="btns">
+        <!-- button tại add mode  -->
+        <ng-container *ngIf="formMode === FormMode.Add">
+          <div class="cancel">
+            <base-button text="{{'COMMON.CANCEL' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="80" (onClick)="back()">
+            </base-button>
+          </div>
+          <div class="save-and-add">
+            <base-button #saveAndAddBtn [actionPermissions]="addPermissions" [iconButtonType]="IconButtonType.POST_ADD"
+              text="{{'FORM_DYNAMIC.SAVE_AND_ADD' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="120"
+              (onClick)="save(true)"></base-button>
+          </div>
+          <div class="add">
+            <base-button #saveBtn [actionPermissions]="addPermissions" text="{{'FORM_DYNAMIC.SAVE' | translate}}" [height]="30" [width]="80"
+              [iconButtonType]="IconButtonType.SAVE" (onClick)="save()"></base-button>
+          </div>
+        </ng-container>
+
+        <!-- button tại edit mode  -->
+        <ng-container *ngIf="formMode === FormMode.Edit">
+          <div class="cancel">
+            <base-button text="{{'COMMON.BACK' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="80" (onClick)="back()">
+            </base-button>
+          </div>
+
+          <div class="save-and-add">
+            <base-button #saveAndAddBtn [actionPermissions]="editAndAddPermissions"
+              [iconButtonType]="IconButtonType.POST_ADD" text="{{'FORM_DYNAMIC.SAVE_AND_ADD' | translate}}" [color]="ButtonColor.BASIC" [height]="30"
+              [width]="120" (onClick)="save(true)"></base-button>
+          </div>
+
+          <div class="edit">
+            <base-button [actionPermissions]="editPermissions" #saveBtn [iconButtonType]="IconButtonType.SAVE" text="{{'FORM_DYNAMIC.SAVE' | translate}}"
+              [height]="30" [width]="100" (onClick)="save()"></base-button>
+          </div>
+        </ng-container>
+
+        <!-- button tại view only mode  -->
+        <ng-container *ngIf="formMode === FormMode.ViewDetail">
+          <div class="cancel">
+            <base-button text="{{'COMMON.BACK' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="80" (onClick)="back()">
+            </base-button>
+          </div>
+
+          <div class="delete">
+            <base-button #deleteBtn [actionPermissions]="deletePermissions" text="{{'COMMON.DELETE' | translate}}" [color]="ButtonColor.BASIC"
+              [iconButtonType]="IconButtonType.DELETE" [height]="30" [width]="80" (onClick)="confirmDelete()">
+            </base-button>
+          </div>
+          <div class="edit">
+            <base-button [actionPermissions]="editPermissions" text="{{'COMMON.Update' | translate}}" [height]="30" [width]="72"
+              [color]="ButtonColor.BASIC" [iconButtonType]="IconButtonType.EDIT" (onClick)="edit()"></base-button>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- button more  -->
+      <div class="btn-responsive" [matMenuTriggerFor]="moreBtns"></div>
+    </div>
+  </div>
+  <div class="form-content">
+    <!-- Loop qua từng group box  -->
+    <div class="content">
+      <div class="group-box" *ngFor="let groupbox of groupBoxes">
+
+        <!-- Box name  -->
+        <div class="box-name">
+          {{groupbox.name}}
+        </div>
+
+        <div class="box-content row">
+          <div class="item" [ngClass]="'col-12 col-md-' + field.scale" *ngFor="let field of groupbox.groupBoxFields">
+            <div class="item-content" [ngClass]="{ 'required' : field.required, 'error': field.error}">
+              <div class="title">{{field.title}} <span *ngIf="field.required" style="color: red">*</span></div>
+              <ng-container [ngSwitch]="field.type">
+                <!-- number  -->
+                <dx-number-box *ngSwitchCase="FormFieldType.Number" format="#,###" class="item-content-value input"
+                  [(value)]="field.value" [min]="0" [readOnly]="formMode == FormMode.ViewDetail">
+                </dx-number-box>
+
+                <!-- date  -->
+                <dx-date-box *ngSwitchCase="FormFieldType.Date" type="date" class="item-content-value input"
+                  [(ngModel)]="field.value" [readOnly]="formMode == FormMode.ViewDetail" [showClearButton]="true"
+                  [useMaskBehavior]="true"></dx-date-box>
+
+                <!-- select box  -->
+                <mp-combobox *ngSwitchCase="FormFieldType.ComboBox" class="item-content-value select-box"
+                  displayExpr="value" valueExpr="id" placeholder="" noDataText="No data"
+                  [isFetching]="field.isFetching" (onOpened)="getComboboxData(field)"
+                  [dataSource]="field.pickList || []" [value]="field.value" (onValueChanged)="field.value =$event.value"
+                  [height]="32" [readOnly]="formMode == FormMode.ViewDetail" [enabledAdd]="field.addSelectorFunc != undefined && (formMode == FormMode.Add || formMode == FormMode.Edit)" (onAdd)="field.addSelectorFunc($event)"></mp-combobox>
+
+                <!-- check box  -->
+                <dx-check-box *ngSwitchCase="FormFieldType.CheckBox" [(value)]="field.value" class="item-content-value"
+                  [matTooltip]="field.placeholder || ''" [readOnly]="formMode == FormMode.ViewDetail"></dx-check-box>
+
+                <!-- image  -->
+                <div *ngSwitchCase="FormFieldType.Image" class="item-content-value uploader">
+                  <div class="title">{{field.title}} <span *ngIf="field.required" style="color: red">*</span></div>
+                  <mp-uploader [showUploadButton]="false" this.uploadBtn.clickExec [multiple]="true"
+                    [emitAutomatically]="true" [allowedFileExtensions]="allowedFileExtensions"
+                    [disabled]="formMode == FormMode.ViewDetail" (onUpload)="field.value = $event"></mp-uploader>
+                </div>
+
+                <!-- area text  -->
+                <dx-text-area *ngSwitchCase="FormFieldType.TextArea" class="item-content-value input"
+                  [(ngModel)]="field.value" minHeight="240" [autoResizeEnabled]="true"
+                  [readOnly]="formMode == FormMode.ViewDetail"></dx-text-area>
+
+                <!-- text  -->
+                <dx-text-box *ngSwitchDefault class="item-content-value input" [(ngModel)]="field.value"
+                  [readOnly]="formMode == FormMode.ViewDetail"></dx-text-box>
+              </ng-container>
+            </div>
+
+            <span *ngIf="field.error" class="error-message">{{field.errorMessage}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="redundant">
+      <loading *ngIf="!isSaving && !isLoading"></loading>
+    </div>
+  </div>
+  <div class="form-footer">
+  </div>
+
+  <loading *ngIf="isSaving || isLoading"></loading>
+</div>
+
+<mat-menu #moreBtns="matMenu">
+  <div class="btn-responsive-menu">
+    <!-- button tại add mode  -->
+    <ng-container *ngIf="formMode === FormMode.Add">
+      <div class="cancel">
+        <base-button text="{{'COMMON.CANCEL' | translate}}" [color]="ButtonColor.BASIC" [buttonType]="ButtonType.STROKED" [height]="30"
+          [width]="120" (onClick)="back()">
+        </base-button>
+      </div>
+      <div class="save-and-add">
+        <base-button #saveAndAddBtnR [actionPermissions]="addPermissions" [buttonType]="ButtonType.STROKED" [iconButtonType]="IconButtonType.POST_ADD"
+          text="{{'FORM_DYNAMIC.SAVE_AND_ADD' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="120" (onClick)="save(true)">
+        </base-button>
+      </div>
+      <div class="add">
+        <base-button #saveBtnR [actionPermissions]="addPermissions" [buttonType]="ButtonType.STROKED" text="{{'FORM_DYNAMIC.SAVE' | translate}}" [iconButtonType]="IconButtonType.SAVE"
+          [color]="ButtonColor.BASIC" [height]="30" [width]="120" (onClick)="save()"></base-button>
+      </div>
+    </ng-container>
+
+    <!-- button tại edit mode  -->
+    <ng-container *ngIf="formMode === FormMode.Edit">
+      <div class="cancel">
+        <base-button text="{{'COMMON.BACK' | translate}}" [color]="ButtonColor.BASIC" [buttonType]="ButtonType.STROKED" [height]="30" [width]="150" (onClick)="back()">
+        </base-button>
+      </div>
+
+      <div class="save-and-add">
+        <base-button #saveAndAddBtnR [actionPermissions]="editAndAddPermissions" [buttonType]="ButtonType.STROKED" [iconButtonType]="IconButtonType.POST_ADD"
+          text="{{'FORM_DYNAMIC.UPDATE_AND_ADD' | translate}}" [color]="ButtonColor.BASIC" [height]="30" [width]="150"
+          (onClick)="save(true)"></base-button>
+      </div>
+
+      <div class="edit">
+        <base-button #saveBtnR [actionPermissions]="editPermissions" text="{{'COMMON.UPDATE' | translate}}" [buttonType]="ButtonType.STROKED" [iconButtonType]="IconButtonType.SAVE"
+          [color]="ButtonColor.BASIC" [height]="30" [width]="150" (onClick)="save()"></base-button>
+      </div>
+    </ng-container>
+
+    <!-- button tại view only mode  -->
+    <ng-container *ngIf="formMode === FormMode.ViewDetail">
+      <div class="cancel">
+        <base-button text="{{'COMMON.BACK' | translate}}" [color]="ButtonColor.BASIC" [buttonType]="ButtonType.STROKED" [height]="30" [width]="120" (onClick)="back()">
+        </base-button>
+      </div>
+
+      <div class="delete">
+        <base-button #deleteBtn [actionPermissions]="deletePermissions" [buttonType]="ButtonType.STROKED" text="{{'COMMON.DELETE' | translate}}" [iconButtonType]="IconButtonType.DELETE"
+          [color]="ButtonColor.WARN" [height]="30" [width]="120" (onClick)="confirmDelete()">
+        </base-button>
+      </div>
+      <div class="edit">
+        <base-button [actionPermissions]="editPermissions" [buttonType]="ButtonType.STROKED" text="{{'COMMON.UPDATE' | translate}}" [iconButtonType]="IconButtonType.POST_ADD"
+          [color]="ButtonColor.BASIC" [height]="30" [width]="120" (onClick)="edit()"></base-button>
+      </div>
+    </ng-container>
+  </div>
+</mat-menu>

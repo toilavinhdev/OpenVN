@@ -1,0 +1,45 @@
+<div class="create-or-update-note" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <div class="wrapper">
+
+    <div *ngIf="!isLoading" class="pin-note" [ngClass]="note.isPinned ? 'pin': 'unpin'"
+      (click)="note.isPinned = !note.isPinned" [matTooltip]="note.isPinned ? 'Unpin note' : 'Pin note'"></div>
+
+    <div *ngIf="!isLoading" [ngClass]="note.isPublic ? 'public': 'private'" (click)="note.isPublic = !note.isPublic" [matTooltip]="note.isPublic ? 'Note is public' : 'Note is private'"></div>
+
+    <div class="title">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'NOTEBOOK.TITLE' | translate}}</mat-label>
+        <input #title matInput [(ngModel)]="note.title" />
+      </mat-form-field>
+    </div>
+
+    <div class="category">
+      <mp-combobox [dataSource]="categories" [valueExpr]="'id'" [displayExpr]="'name'" (onOpened)="loadCategories()"
+        [value]="note.categoryId" [isFetching]="isFetchingCategory" [enabledAdd]="true"
+        placeholder="{{'NOTEBOOK.CATEGORY_TITLE' | translate}}" (onAdd)="openCreateCategory($event)"
+        (onValueChanged)="note.categoryId = $event.value"></mp-combobox>
+
+    </div>
+
+    <div class="content">
+      <!-- <mat-form-field appearance="fill" *ngIf="false">
+        <mat-label>{{'NOTEBOOK.CONTENT' | translate}}</mat-label>
+        <textarea #content matInput [(ngModel)]="note.content"></textarea>
+      </mat-form-field> -->
+
+      <editor #tinymce *ngIf="data.formMode == FormMode.Add || !isLoading" [(ngModel)]="note.content" [init]="config">
+      </editor>
+      <progess-spinner-loading *ngIf="isLoadingEditor"></progess-spinner-loading>
+    </div>
+
+    <div class="functions">
+      <!-- <div class="cancel" matTooltip="{{'COMMON.CANCEL' | translate}}" (click)="cancel()"></div> -->
+
+      <base-button #saveBtn text="{{'COMMON.SAVE' | translate}}" [width]="80" [height]="32" (onClick)="save()"
+        [actionExponents]="[ActionExponent.Add]"></base-button>
+    </div>
+
+    <progess-spinner-loading *ngIf="isLoading"></progess-spinner-loading>
+  </div>
+
+</div>

@@ -1,0 +1,142 @@
+.create-or-update-note {
+  position: relative;
+  padding: 24px;
+  .wrapper {
+    position: relative;
+    .category,
+    .content {
+      margin-bottom: 12px;
+    }
+
+    ::ng-deep {
+      .title {
+        margin-top: 4px;
+        .mat-input-element {
+          letter-spacing: 1px !important;
+          text-transform: uppercase !important;
+        }
+      }
+      .category {
+        .dx-texteditor-input {
+          letter-spacing: 1px !important;
+          text-transform: uppercase !important;
+        }
+      }
+    }
+
+    .pin-note {
+      position: absolute;
+      top: -20px;
+      right: -8px;
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+      cursor: pointer;
+
+      &.unpin {
+        background-image: url(../../../../../assets/img/notebook/pin-white.png);
+      }
+
+      &.pin {
+        background-image: url(../../../../../assets/img/notebook/pin.png);
+      }
+    }
+
+    .public,
+    .private {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+      cursor: pointer;
+
+      &.public {
+        background-image: url(../../../../../assets/img/notebook/public.png);
+      }
+
+      &.private {
+        background-image: url(../../../../../assets/img/notebook/private.png);
+      }
+    }
+
+    .functions {
+      display: flex;
+      justify-content: flex-end;
+
+      .save,
+      .cancel {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        cursor: pointer;
+      }
+      .save {
+        background-image: url(../../../../../assets/img/notebook/note-add.png);
+      }
+      .cancel {
+        background-image: url(../../../../../assets/img/common/cancel.png);
+        margin-right: 24px;
+      }
+    }
+
+    ::ng-deep {
+      .progess-spinner-loading {
+        position: absolute;
+      }
+
+      .dx-texteditor {
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+
+        // .dx-label {
+        //   margin-left: 7px;
+        //   border-bottom: none;
+        //   color: rgba(0,0,0,.6);
+        // }
+
+        // .dx-label-before, .dx-label-after {
+        //   display: none !important;
+        // }
+
+        &.dx-editor-outlined {
+          border-color: rgba(0, 0, 0, 0.42) !important;
+          border: none !important;
+        }
+      }
+
+      .mat-form-field {
+        width: 100% !important;
+      }
+
+      .mat-form-field-wrapper div.mat-form-field-flex {
+        background: none !important;
+      }
+
+      .mat-form-field-appearance-fill .mat-form-field-underline::before {
+        background: none !important;
+      }
+
+      textarea.mat-input-element {
+        min-height: 160px;
+        resize: none;
+      }
+    }
+  }
+}
+
+::ng-deep .fucking-create {
+  .mat-dialog-container {
+    padding: 0px !important;
+  }
+}
+
+::ng-deep .fucking-category-create {
+  .mat-dialog-container {
+    padding: 12px 16px !important;
+  }
+}

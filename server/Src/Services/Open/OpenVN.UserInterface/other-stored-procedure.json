@@ -1,0 +1,18 @@
+{
+  "CreateOrUpdateConfig": "proc_create_or_update_config",
+  "GetMaxDirectoryDuplicateNo": "proc_get_max_directory_duplicate_no",
+  "GetAllDirectory": "proc_get_all_directory",
+  "GetChildrenDirectory": "proc_get_all_children_directory",
+  "GetTotalFileSize": "proc_get_total_file_size",
+  "GetFilesInDirectory": "proc_get_files_in_directory",
+  "GetFilesInDirectories": "proc_get_files_in_directories",
+  "GetDirectoryPath": "proc_get_directory_path_map",
+  "GetChildrenNodeId": "proc_get_children_node_id",
+  "SetDirectoryPassword": "proc_set_directory_password",
+  "ChangeDirectoryLockStatus": "proc_change_directory_lock_status",
+  "FindFirstNodeLockedDirectory": "proc_find_first_node_locked_directory",
+  "MoveCloudObjects": "proc_move_cloud_object",
+  "GetDirectoryProperties": "proc_get_directory_properties",
+  "DeleteDirectoriesByIds": "proc_delete_directories_by_ids",
+  "GetAllNodesInDirectories": "proc_get_all_nodes_in_directories"
+}
